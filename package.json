@@ -64,6 +64,7 @@
     "koa-webpack": "*",
     "lodash": "*",
     "pg": "*",
+    "rollbar": "^2.0.4",
     "sequelize": "*",
     "sqlite3": "*",
     "style-loader": "*",

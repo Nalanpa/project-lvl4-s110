@@ -14,6 +14,7 @@ import session from 'koa-generic-session';
 import flash from 'koa-flash-simple';
 import _ from 'lodash';
 import methodOverride from 'koa-methodoverride';
+// import Rollbar from 'rollbar';
 
 import getWebpackConfig from '../webpack.config.babel';
 import addRoutes from './controllers';
@@ -21,6 +22,7 @@ import container from './container';
 
 export default () => {
   const app = new Koa();
+  // const rollbar = new Rollbar(process.env.ROLLBAR_TOKEN);
 
   app.keys = ['some secret hurr'];
   app.use(session(app));
@@ -33,8 +35,10 @@ export default () => {
     await next();
   });
   app.use(bodyParser());
+  // eslint-disable-next-line consistent-return
   app.use(methodOverride((req) => {
     if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+      // eslint-disable-next-line no-underscore-dangle
       return req.body._method;
     }
   }));
@@ -52,6 +56,8 @@ export default () => {
   app.use(router.allowedMethods());
   app.use(router.routes());
 
+  // app.use(rollbar.errorHandler());
+
   const pug = new Pug({
     viewPath: path.join(__dirname, 'views'),
     debug: true,
@@ -65,5 +71,8 @@ export default () => {
     ],
   });
   pug.use(app);
+
+  // app.on('error', (err, ctx) => rollbar.handleError(err, ctx));
+
   return app;
 };

@@ -11,5 +11,3 @@
 ```
 make install
 ```
-
-Created postgresql-shallow-45831 as DATABASE_URL

@@ -1,6 +1,6 @@
 {
   "name": "nalanpa-forth-project",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Task Manager -- Forth learning project on Hexlet",
   "main": "dist/index.js",
   "bin": {
@@ -36,6 +36,7 @@
   },
   "homepage": "https://github.com/Nalanpa/project-lvl4-s110#readme",
   "dependencies": {
+    "autoprefixer": "^7.1.1",
     "babel-cli": "*",
     "babel-core": "*",
     "babel-loader": "*",
@@ -64,6 +65,7 @@
     "koa-webpack": "*",
     "lodash": "*",
     "pg": "*",
+    "postcss-loader": "^2.0.5",
     "rollbar": "^2.0.4",
     "sequelize": "*",
     "sqlite3": "*",

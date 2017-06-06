@@ -25,8 +25,6 @@ export default () => {
 
   app.keys = ['some secret hurr'];
 
-  rollbar.init(process.env.ROLLBAR_TOKEN);
-
   app.use(session(app));
   app.use(flash());
   app.use(async (ctx, next) => {
@@ -71,6 +69,9 @@ export default () => {
     ],
   });
   pug.use(app);
+
+
+  rollbar.init(process.env.ROLLBAR_TOKEN);
 
   app.on('error', (err, ctx) => rollbar.handleError(err, ctx));
 

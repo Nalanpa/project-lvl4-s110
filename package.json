@@ -49,6 +49,7 @@
     "css-loader": "*",
     "debug": "*",
     "dotenv": "*",
+    "faker": "^4.1.0",
     "gulp": "*",
     "gulp-util": "*",
     "jquery": "*",

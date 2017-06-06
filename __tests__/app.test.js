@@ -1,5 +1,6 @@
 import request from 'supertest';
 import matchers from 'jest-supertest-matchers';
+// import faker from 'faker';
 
 import app from '../src';
 

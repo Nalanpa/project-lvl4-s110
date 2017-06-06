@@ -22,6 +22,9 @@ build:
 test:
 	NODE_ENV=test npm test
 
+test-watch:
+	NODE_ENV=test npm run test-watch
+
 check-types:
 	npm run flow
 
@@ -31,4 +34,4 @@ lint:
 publish:
 	npm publish
 
-.PHONY: test
+.PHONY: test test-watch start init console install build publish lint

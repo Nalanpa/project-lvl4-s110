@@ -16,6 +16,7 @@
     "gulp": "gulp",
     "nodemon": "nodemon",
     "test": "jest",
+    "test-watch": "jest --watch",
     "babel-node": "babel-node",
     "flow": "flow",
     "flow-typed": "flow-typed",

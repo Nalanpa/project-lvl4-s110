@@ -36,6 +36,16 @@ describe('requests', () => {
     expect(res).toHaveHTTPStatus(404);
   });
 
+  it('GET 302', async () => {
+    const res1 = await request.agent(server)
+      .get('/current/account');
+    const res2 = await request.agent(server)
+      .get('/current/password');
+
+    expect(res1).toHaveHTTPStatus(302);
+    expect(res2).toHaveHTTPStatus(302);
+  });
+
   afterEach((done) => {
     server.close();
     done();

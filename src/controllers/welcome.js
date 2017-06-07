@@ -1,5 +1,7 @@
-export default (router) => {
-  router.get('root', '/', (ctx) => {
-    ctx.render('welcome/index');
+export default (router, { User }) => {
+  router.get('root', '/', async (ctx) => {
+    const id = ctx.session.userId;
+    const user = await User.findById(id);
+    ctx.render('welcome', { user });
   });
 };

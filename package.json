@@ -53,6 +53,7 @@
     "faker": "^4.1.0",
     "gulp": "*",
     "gulp-util": "*",
+    "jade-bootstrap": "^1.0.14",
     "jquery": "*",
     "jquery-ujs": "*",
     "koa": "*",

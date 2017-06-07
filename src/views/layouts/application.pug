@@ -3,30 +3,48 @@ include /mixins/forms.pug
 doctype html
 html(lang="en")
   head
-    title= Title
+    title Task Manager
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(rel="stylesheet",href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+    link(href="/assets/app.css" rel="stylesheet")
+    //- link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
     script(src='/assets/vendor.js')
     script(src='/assets/application.js')
-    //- link(href='app.css' rel='stylesheet')
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js")
   body
     nav.navbar.navbar-toggleable-md.navbar-light.bg-faded
-      button.navbar-toggler.navbar-toggler-right
+      button.navbar-toggler.navbar-toggler-right(aria-controls='navbarResponsive' aria-expanded='false' aria-label='Toggle navigation' data-target='#navbarResponsive' data-toggle='collapse')
         span.navbar-toggler-icon
-      a.navbar-brand(href="/") Task Manager
-      .collapse.navbar-collapse
-        ul.navbar-nav.mr-auto.ml-4
-          li.nav-item.active
-            a.nav-link(href=urlFor('users')) Users
+      .collapse.navbar-collapse#navbarResponsive
+        
+        ul.navbar-nav.mr-auto
+          li.nav-item.mr-4
+            a.navbar-brand(href='/' aria-hidden='true') Task Manager
+          li.nav-item
+            a.nav-link(href=urlFor('users')) 
+              span.glyphicon.glyphicon-list
+              |Users 
         ul.navbar-nav
           if isSignedIn()
             li.nav-item
-              a.nav-link(href=urlFor('account')) My account
+              a.nav-link(href=urlFor('account')) 
+                span.glyphicon.glyphicon-user
+                |My account 
             li.nav-item
-              a.nav-link(href=urlFor('session') data-method='delete' rel='nofollow') Sign Out
+              a.nav-link(href=urlFor('session') data-method='delete' rel='nofollow') 
+                span.glyphicon.glyphicon-log-out
+                |Sign Out 
           else
             li.nav-item
-              a.nav-link(href=urlFor('newSession')) Sign In
+              a.nav-link(href=urlFor('newSession')) 
+                span.glyphicon.glyphicon-log-in
+                |Sign In 
             li.nav-item
-              a.nav-link(href=urlFor('newUser')) Sign Up
+              a.nav-link(href=urlFor('newUser')) 
+                span.glyphicon.glyphicon-triangle-top
+                |Sign Up 
+              
     .container
       - const msg = flash.get()
       if msg

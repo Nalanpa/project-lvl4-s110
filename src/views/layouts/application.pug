@@ -23,27 +23,27 @@ html(lang="en")
             a.navbar-brand(href='/' aria-hidden='true') Task Manager
           li.nav-item
             a.nav-link(href=urlFor('users')) 
-              span.glyphicon.glyphicon-list
-              |Users 
+              span.glyphicon.glyphicon-list.mr-3
+              | Users 
         ul.navbar-nav
           if isSignedIn()
             li.nav-item
               a.nav-link(href=urlFor('account')) 
-                span.glyphicon.glyphicon-user
-                |My account 
+                span.glyphicon.glyphicon-user.mr-3
+                | My account 
             li.nav-item
               a.nav-link(href=urlFor('session') data-method='delete' rel='nofollow') 
-                span.glyphicon.glyphicon-log-out
-                |Sign Out 
+                span.glyphicon.glyphicon-log-out.mr-3
+                | Sign Out 
           else
             li.nav-item
               a.nav-link(href=urlFor('newSession')) 
-                span.glyphicon.glyphicon-log-in
-                |Sign In 
+                span.glyphicon.glyphicon-log-in.mr-3
+                | Sign In 
             li.nav-item
               a.nav-link(href=urlFor('newUser')) 
-                span.glyphicon.glyphicon-triangle-top
-                |Sign Up 
+                span.glyphicon.glyphicon-triangle-top.mr-3
+                | Sign Up 
               
     .container
       - const msg = flash.get()

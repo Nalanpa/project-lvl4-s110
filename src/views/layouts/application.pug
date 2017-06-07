@@ -30,8 +30,8 @@ html(lang="en")
     .container
       - const msg = flash.get()
       if msg
-        .alert.alert-info.alert-dismissible.fade.show.my-3= msg
-          a.close(href="#" data-dismiss="alert" aria-label="close") ×
+        .alert.alert-dismissible.fade.show.my-3(class=`${msg.type}`)= msg.text
+          a.close(href="#" data-dismiss="alert" aria-label="close") × 
       block content
         
     footer.footer.fixed-bottom.w-100.bg-faded

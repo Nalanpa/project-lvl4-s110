@@ -1,15 +1,17 @@
 extends /layouts/application.pug
 
 block content
-  .row
-    .col-lg-3.col-12.p-3
-      .container.bg-faded.p-3
+  .row.justify-content-center
+    .col-lg-4.col-12.p-4
+      .container.bg-faded.p-4
         include /account/data_panel.pug
+        p.mt-2.mb-3.text-muted
+          |Edit data
         p.mt-2.mb-3
           a(href=urlFor('password')) Change password
         p.mt-2.mb-3
-          a.text-danger(href=urlFor('account') data-method='delete' rel='nofollow') Delete my account      
-    .col-lg-9.col-12
+          a.text-danger(href=urlFor('deleteAccount')) Delete my account      
+    .col-lg-4.col-12
       +formFor(f, { url: urlFor('account'), method: 'post', title: 'Edit data' })
         +input(f, 'firstName', { label : 'First Name:'})
         +input(f, 'lastName', { label : 'Last Name:'})

@@ -20,7 +20,7 @@ export default (router, { User }) => {
         return;
       }
 
-      ctx.flash.set('email or password were wrong');
+      ctx.flash.set({ text: 'email or password were wrong', type: 'alert-danger' });
       ctx.render('sessions/new', { f: buildFormObj({ email }) });
     })
     .delete('session', '/session', (ctx) => {

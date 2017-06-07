@@ -24,7 +24,7 @@ export default (router, { User }) => {
       const form = ctx.request.body.form;
       try {
         await user.update(form);
-        ctx.flash.set('User has been updated');
+        ctx.flash.set({ text: 'User has been updated', type: 'alert-success' });
         ctx.redirect(router.url('account'));
       } catch (e) {
         ctx.render('account', { f: buildFormObj(form, e), user });
@@ -54,24 +54,35 @@ export default (router, { User }) => {
       } = ctx.request.body.form;
       try {
         if (user.passwordDigest !== encrypt(password)) {
-          ctx.flash.set('Wrong password');
+          ctx.flash.set({ text: 'Wrong password', type: 'alert-danger' });
         } else if (newPassword !== confirmation) {
-          ctx.flash.set('Password doesn\'t match confirmation');
+          ctx.flash.set({ text: 'Password doesn\'t match confirmation', type: 'alert-danger' });
         } else {
           await user.update({ password: newPassword });
-          ctx.flash.set('Password has been updated');
+          ctx.flash.set({ text: 'Password has been updated', type: 'alert-success' });
         }
       } catch (e) {
-        ctx.flash.set('New password is not valid');
+        ctx.flash.set({ text: 'New password is not valid', type: 'alert-danger' });
       }
 
       ctx.redirect(router.url('password'));
+    })
+    .get('deleteAccount', '/current/ask_delete', async (ctx) => {
+      const id = ctx.session.userId;
+      if (!id) {
+        ctx.redirect(router.url('newSession'));
+        return;
+      }
+
+      const user = await User.findById(id);
+      ctx.render('account/delete', { f: buildFormObj({}), user });
     })
     .delete('account', '/current/account', async (ctx) => {
       const id = ctx.session.userId;
       if (id) {
         await User.destroy({ where: { id } });
         ctx.session = {};
+        ctx.flash.set({ text: 'User account was deleted', type: 'alert-success' });
       }
       ctx.redirect(router.url('root'));
     });

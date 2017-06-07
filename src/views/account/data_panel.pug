@@ -1,5 +1,11 @@
-h3.my-3 My account data
+h3.mb-3 My account data
 .user_data.py-3
-  p.mt-2.mb-3= 'Full Name: ' + user.fullName
-  p.mt-2.mb-3= 'Email: ' + user.email
-  p.mt-2.mb-3= 'Created: ' + user.created
+  p.mt-2.mb-3
+    strong Full Name: 
+    em= user.fullName
+  p.mt-2.mb-3
+    strong Email:  
+    em= user.email
+  p.mt-2.mb-3 
+    strong Created: 
+    em= user.createdAt.toDateString()

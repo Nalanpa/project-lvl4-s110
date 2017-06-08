@@ -20,7 +20,7 @@ build:
 	npm run build
 
 test:
-	NODE_ENV=test npm test
+	NODE_ENV=test npm __tests__
 
 test-watch:
 	NODE_ENV=test npm run test-watch
@@ -29,7 +29,7 @@ check-types:
 	npm run flow
 
 lint:
-	npm run eslint -- src test
+	npm run eslint -- src __tests__ client
 
 publish:
 	npm publish

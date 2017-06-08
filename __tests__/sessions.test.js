@@ -71,7 +71,7 @@ describe('Sessions', () => {
     const res = await request.agent(server)
       .post('/session')
       .send({ form });
-    expect(res).toHaveHTTPStatus(200);
+    expect(res).toHaveHTTPStatus(302);
   });
 
   it('Sign Out', async () => {

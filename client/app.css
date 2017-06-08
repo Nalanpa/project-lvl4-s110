@@ -22,3 +22,8 @@ body {
   font-weight: 900;
   background-color: #ddd;
 }
+
+.splash-screen {
+  height: 30rem;
+  margin-left: 2.6rem;
+}

@@ -5,3 +5,4 @@ import './icons/login.png';
 import './icons/logout.png';
 import './icons/signup.png';
 import './icons/users.png';
+import './icons/splash_screen.png';

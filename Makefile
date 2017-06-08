@@ -20,7 +20,7 @@ build:
 	npm run build
 
 test:
-	NODE_ENV=test npm __tests__
+	NODE_ENV=test npm test
 
 test-watch:
 	NODE_ENV=test npm run test-watch

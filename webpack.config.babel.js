@@ -25,7 +25,7 @@ export default () => ({
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         use: [
-          'file-loader',
+          'file-loader?name=[name].[ext]',
           'image-webpack-loader',
         ],
       },

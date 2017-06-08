@@ -1,8 +1,3 @@
-/*
-Task Manager
-*/
-
-/*@import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css');*/
 
 @media (min-width: 48em) {
   html {
@@ -20,4 +15,10 @@ body {
   width: 1.5rem;
   margin-right: 0.5rem;
   margin-bottom: 0.3rem;
+}
+
+.navbar-brand {
+  padding: 0.5rem;
+  font-weight: 900;
+  background-color: #ddd;
 }

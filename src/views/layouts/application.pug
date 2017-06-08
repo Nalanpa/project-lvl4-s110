@@ -21,18 +21,28 @@ html(lang="en")
           li.nav-item.mr-4
             a.navbar-brand(href='/' aria-hidden='true') Task Manager
           li.nav-item
-            a.nav-link(href=urlFor('users')) Users 
+            a.nav-link(href=urlFor('users'))
+              img.link-icon(src='/assets/users.png')
+              | Users 
         ul.navbar-nav
           if isSignedIn()
             li.nav-item
-              a.nav-link(href=urlFor('account')) My account 
+              a.nav-link(href=urlFor('account'))
+                img.link-icon(src='/assets/user.png')
+                |My account 
             li.nav-item
-              a.nav-link(href=urlFor('confirmLogout')) Sign Out 
+              a.nav-link(href=urlFor('confirmLogout'))
+                img.link-icon(src='/assets/logout.png')
+                | Sign Out 
           else
             li.nav-item
-              a.nav-link(href=urlFor('newSession')) Sign In 
+              a.nav-link(href=urlFor('newSession'))
+                img.link-icon(src='/assets/login.png')
+                | Sign In 
             li.nav-item
-              a.nav-link(href=urlFor('newUser')) Sign Up 
+              a.nav-link(href=urlFor('newUser'))
+                img.link-icon(src='/assets/signup.png')
+                | Sign Up 
               
     .container
       - const msg = flash.get()

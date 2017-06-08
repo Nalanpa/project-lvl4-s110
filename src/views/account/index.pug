@@ -10,7 +10,7 @@ block content
         p.mt-2.mb-3
           a(href=urlFor('password')) Change password
         p.mt-2.mb-3
-          a.text-danger(href=urlFor('deleteAccount')) Delete my account      
+          a.text-danger(href=urlFor('confirmAccountDelete')) Delete my account      
     .col-lg-4.col-12
       +formFor(f, { url: urlFor('account'), method: 'post', title: 'Edit data' })
         +input(f, 'firstName', { label : 'First Name:'})

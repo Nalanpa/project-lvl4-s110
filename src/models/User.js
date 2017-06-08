@@ -7,6 +7,7 @@ export default connect => connect.define('User', {
     unique: true,
     validate: {
       isEmail: { msg: "Wrong email's format" },
+      notEmpty: { msg: 'Cannot be empty' },
     },
   },
   passwordDigest: {

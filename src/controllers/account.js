@@ -67,7 +67,7 @@ export default (router, { User }) => {
 
       ctx.redirect(router.url('password'));
     })
-    .get('deleteAccount', '/current/ask_delete', async (ctx) => {
+    .get('confirmAccountDelete', '/current/confirmAccountDelete', async (ctx) => {
       const id = ctx.session.userId;
       if (!id) {
         ctx.redirect(router.url('newSession'));

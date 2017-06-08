@@ -1,3 +1,8 @@
+/*
+Task Manager
+*/
+
+/*@import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css');*/
 
 @media (min-width: 48em) {
   html {
@@ -10,55 +15,9 @@ body {
   color: #333;
 }
 
-h1, .h1,
-h2, .h2,
-h3, .h3,
-h4, .h4,
-h5, .h5,
-h6, .h6 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: normal;
-  color: #333;
-}
-
-.container {
-  max-width: 60rem;
-}
-
-.navbar-brand {
-  font-weight: 600;
-  background-color: #ddd;
-}
-.navbar-nav{
-  vertical-align: middle;
-}
-.nav-link {
-  font-weight: 500;
-  color: #cdddeb;
-  vertical-align: bottom;
-}
-.nav-brand:hover,
-.nav-link:hover,
-.nav-link:focus {
-  color: #fff;
-  background-color: transparent;
-}
-
-
-.nav-link.active {
-  color: #fff;
-}
-.nav-link.active:after {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 0;
-  margin-left: -.3rem;
-  vertical-align: middle;
-  content: "";
-  border-top: .3rem solid;
-  border-right: .3rem solid transparent;
-  border-bottom: .3rem solid;
-  border-left: .3rem solid transparent;
+.link-icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.3rem;
 }

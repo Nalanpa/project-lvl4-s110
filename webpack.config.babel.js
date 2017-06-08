@@ -22,6 +22,13 @@ export default () => ({
         test: /\.css$/,
         use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        use: [
+          'file-loader',
+          'image-webpack-loader',
+        ],
+      },
     ],
   },
   plugins: [

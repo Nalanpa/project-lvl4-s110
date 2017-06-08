@@ -19,9 +19,18 @@ export default (router, { User }) => {
         ctx.redirect(router.url('root'));
         return;
       }
+      console.log('Session error >>>', email, password);
 
-      ctx.flash.set({ text: 'email or password were wrong', type: 'alert-danger' });
-      ctx.render('sessions/new', { f: buildFormObj({ email }) });
+      if (!email || !password) {
+        ctx.flash.set({ text: 'Please fill in your Email and Password', type: 'alert-danger' });
+      } else {
+        ctx.flash.set({ text: 'Email or password were wrong', type: 'alert-danger' });
+      }
+
+      ctx.redirect(router.url('newSession'));
+    })
+    .get('confirmLogout', '/session/confirmLogout', async (ctx) => {
+      ctx.render('sessions/logout', { f: buildFormObj({}) });
     })
     .delete('session', '/session', (ctx) => {
       ctx.session = {};

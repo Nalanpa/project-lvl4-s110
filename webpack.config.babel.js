@@ -26,7 +26,7 @@ export default () => ({
         test: /\.(jpe?g|png|gif|svg)$/i,
         use: [
           'file-loader?name=[name].[ext]',
-          'image-webpack-loader',
+          'image-webpack-loader?{mozjpeg: {progressive: true,},gifsicle: {interlaced: false,},optipng: {optimizationLevel: 4,},pngquant: {quality: "75-90", speed: 3,},}',
         ],
       },
     ],

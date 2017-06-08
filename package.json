@@ -55,6 +55,7 @@
     "gulp": "*",
     "gulp-util": "*",
     "image-webpack-loader": "^3.3.1",
+    "imagemin-pngquant": "github:imagemin/imagemin-pngquant",
     "jade-bootstrap": "^1.0.14",
     "jquery": "*",
     "jquery-ujs": "*",

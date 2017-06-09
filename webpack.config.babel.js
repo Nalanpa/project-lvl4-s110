@@ -26,30 +26,30 @@ export default () => ({
         test: /\.(jpe?g|png|gif|svg)$/i,
         use: [
           'file-loader?name=[name].[ext]',
-          {
-            loader: 'img-loader',
-            options: {
-              enabled: process.env.NODE_ENV === 'production',
-              gifsicle: {
-                interlaced: false,
-              },
-              mozjpeg: {
-                progressive: true,
-                arithmetic: false,
-              },
-              optipng: false,
-              pngquant: {
-                floyd: 0.5,
-                speed: 2,
-              },
-              svgo: {
-                plugins: [
-                  { removeTitle: true },
-                  { convertPathData: false },
-                ],
-              },
-            },
-          },
+          // {
+          //   loader: 'img-loader',
+          //   options: {
+          //     enabled: process.env.NODE_ENV === 'production',
+          //     gifsicle: {
+          //       interlaced: false,
+          //     },
+          //     mozjpeg: {
+          //       progressive: true,
+          //       arithmetic: false,
+          //     },
+          //     optipng: false,
+          //     pngquant: {
+          //       floyd: 0.5,
+          //       speed: 2,
+          //     },
+          //     svgo: {
+          //       plugins: [
+          //         { removeTitle: true },
+          //         { convertPathData: false },
+          //       ],
+          //     },
+          //   },
+          // },
         ],
       },
       // {

@@ -52,6 +52,7 @@
     "dotenv": "*",
     "faker": "^4.1.0",
     "file-loader": "^0.11.2",
+    "gifsicle": "^3.0.4",
     "gulp": "*",
     "gulp-util": "*",
     "image-webpack-loader": "^3.3.1",

@@ -1,4 +1,6 @@
 - const getInputName = (f, property) => `${f.name}[${property}]`
+- const formatDate = (date) => date.toLocaleDateString("en-us", { year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})
+
 
 mixin formFor(f, options = {})
   .row.justify-content-center.pb-5

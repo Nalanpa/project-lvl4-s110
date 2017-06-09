@@ -1,0 +1,22 @@
+extends /layouts/application.pug
+
+
+block content
+ 
+  h2.mt-5 Task Statuses
+
+  table.table.table-striped.table-hover.table-sm.mt-4
+    thead.thead-inverse
+      tr
+        th Task Status
+        th Id
+        th Created
+        th Updated
+    tbody
+      each taskStatus in taskStatuses
+        tr
+          td= taskStatus.name
+          td= taskStatus.id
+          td= formatDate(taskStatus.createdAt)
+          td= formatDate(taskStatus.updatedAt)
+          

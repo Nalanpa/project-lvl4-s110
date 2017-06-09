@@ -67,16 +67,6 @@ export default (router, { User }) => {
 
       ctx.redirect(router.url('password'));
     })
-    .get('confirmAccountDelete', '/current/confirmAccountDelete', async (ctx) => {
-      const id = ctx.session.userId;
-      if (!id) {
-        ctx.redirect(router.url('newSession'));
-        return;
-      }
-
-      const user = await User.findById(id);
-      ctx.render('account/delete', { f: buildFormObj({}), user });
-    })
     .delete('account', '/current/account', async (ctx) => {
       const id = ctx.session.userId;
       if (id) {

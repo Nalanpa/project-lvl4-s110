@@ -1,7 +1,10 @@
 extends /layouts/application.pug
 
 block content
-  table.table.table-striped.table-hover.table-sm.mt-5
+  
+  h2.mt-5 Users
+  
+  table.table.table-striped.table-hover.table-sm.mt-4
     thead.thead-inverse
       tr
         th Full Name
@@ -12,4 +15,4 @@ block content
         tr
           td= user.fullName
           td= user.email
-          td= user.createdAt
+          td= formatDate(user.createdAt)

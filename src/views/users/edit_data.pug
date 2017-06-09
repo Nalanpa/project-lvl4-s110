@@ -4,15 +4,15 @@ block content
   .row.justify-content-center
     .col-lg-4.col-12.p-4
       .container.bg-faded.p-4
-        include /account/data_panel.pug
+        include /users/show.pug
         p.mt-2.mb-3.text-muted
           |Edit data
         p.mt-2.mb-3
-          a(href=urlFor('password')) Change password
+          a(href=urlFor('usersEditPassword')) Change password
         p.mt-2.mb-3
-          a.text-danger(data-confirm="Are you sure you want to delete your account?" href=urlFor('account') data-method='delete' rel='nofollow') Delete my account      
+          a.text-danger(data-confirm="Are you sure you want to delete your account?" href=urlFor('usersDelete') data-method='delete' rel='nofollow') Delete my account      
     .col-lg-4.col-12
-      +formFor(f, { url: urlFor('account'), method: 'post', title: 'Edit data' })
+      +formFor(f, { url: urlFor('usersUpdateData'), method: 'put', title: 'Edit data' })
         +input(f, 'firstName', { label : 'First Name:'})
         +input(f, 'lastName', { label : 'Last Name:'})
         +input(f, 'email', { label : 'Email:'})

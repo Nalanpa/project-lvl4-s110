@@ -21,26 +21,26 @@ html(lang="en")
           li.nav-item.mr-4
             a.navbar-brand(href='/' aria-hidden='true') Task Manager
           li.nav-item
-            a.nav-link(href=urlFor('users'))
+            a.nav-link(href=urlFor('usersIndex'))
               img.link-icon(src='/assets/users.gif')
               | Users 
         ul.navbar-nav
           if isSignedIn()
             li.nav-item
-              a.nav-link(href=urlFor('account'))
+              a.nav-link(href=urlFor('usersEditData'))
                 img.link-icon(src='/assets/user.gif')
                 |My account 
             li.nav-item
-              a.nav-link(href=urlFor('confirmLogout'))
+              a.nav-link(href=urlFor('sessionDelete') data-method='delete' rel='nofollow')
                 img.link-icon(src='/assets/logout.gif')
                 | Sign Out 
           else
             li.nav-item
-              a.nav-link(href=urlFor('newSession'))
+              a.nav-link(href=urlFor('sessionNew'))
                 img.link-icon(src='/assets/login.gif')
                 | Sign In 
             li.nav-item
-              a.nav-link(href=urlFor('newUser'))
+              a.nav-link(href=urlFor('usersNew'))
                 img.link-icon(src='/assets/signup.gif')
                 | Sign Up 
               

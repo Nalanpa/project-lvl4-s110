@@ -1,9 +1,0 @@
-extends /layouts/application.pug
-
-block content
-  .row.justify-content-center
-    .col-lg-5.col-12.p-4
-      .container.bg-faded.p-4
-        h3.ml-4 Are you realy want to logout?
-        a.nav-link(href=urlFor('session') data-method='delete' rel='nofollow') 
-          input(class='mt-4 btn btn-primary-outline btn-primary btn-block' value='Yes, I want logout') 

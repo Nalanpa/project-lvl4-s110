@@ -5,7 +5,8 @@
 mixin formFor(f, options = {})
   .row.justify-content-center.pb-5
     .col-12.col-lg-12.col-xl-12.bg-faded.p-4.m-4
-      form(action=_.get(options, 'url') method=_.get(options, 'method', 'get'))
+      form(action=_.get(options, 'url') method="post")
+        input(type="hidden" name="_method" value=_.get(options, 'method', 'get'))
         h2(class='mb-4')= _.get(options, 'title') || ''
         block
 

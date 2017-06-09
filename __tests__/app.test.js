@@ -14,36 +14,32 @@ describe('requests', () => {
     server = app().listen();
   });
 
-  it('GET 200', async () => {
+  it('Routes', async () => {
     const res1 = await request.agent(server)
       .get('/');
     const res2 = await request.agent(server)
       .get('/users');
     const res3 = await request.agent(server)
-      .get('/users/new');
+      .get('/users/current/edit/data');
     const res4 = await request.agent(server)
-      .get('/session/new');
+      .get('/users/current/edit/password');
+    const res5 = await request.agent(server)
+      .get('/users/new');
+    const res6 = await request.agent(server)
+      .get('/session');
 
     expect(res1).toHaveHTTPStatus(200);
     expect(res2).toHaveHTTPStatus(200);
-    expect(res3).toHaveHTTPStatus(200);
-    expect(res4).toHaveHTTPStatus(200);
+    expect(res3).toHaveHTTPStatus(302);
+    expect(res4).toHaveHTTPStatus(302);
+    expect(res5).toHaveHTTPStatus(200);
+    expect(res6).toHaveHTTPStatus(200);
   });
 
   it('GET 404', async () => {
     const res = await request.agent(server)
       .get('/wrong-path');
     expect(res).toHaveHTTPStatus(404);
-  });
-
-  it('GET 302', async () => {
-    const res1 = await request.agent(server)
-      .get('/current/account');
-    const res2 = await request.agent(server)
-      .get('/current/password');
-
-    expect(res1).toHaveHTTPStatus(302);
-    expect(res2).toHaveHTTPStatus(302);
   });
 
   afterEach((done) => {

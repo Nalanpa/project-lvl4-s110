@@ -29,7 +29,7 @@ export default (router, { User }) => {
     .delete('sessionDelete', '/session', async (ctx) => {
       const id = ctx.session.userId;
       const user = await User.findById(id);
-      const userName = user.fullName;
+      const userName = user ? user.fullName : 'see you later';
       ctx.session = {};
       ctx.flash.set({ text: `Good buy, ${userName}!`, type: 'alert-info' });
       ctx.redirect(router.url('root'));

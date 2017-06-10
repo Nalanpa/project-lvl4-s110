@@ -5,12 +5,10 @@ html(lang="en")
   head
     title Task Manager
     meta(name="viewport" content="width=device-width, initial-scale=1")
-    //- link(rel="stylesheet",href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
-    //- link(href="/assets/app.css" rel="stylesheet")
     script(src='/assets/vendor.js')
     script(src='/assets/application.js')
-    script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js")
-    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js")
+    //- script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js")
+    //- script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js")
   body
     nav.navbar.navbar-toggleable-md.navbar-light.bg-faded
       button.navbar-toggler.navbar-toggler-right(aria-controls='navbarResponsive' aria-expanded='false' aria-label='Toggle navigation' data-target='#navbarResponsive' data-toggle='collapse')
@@ -51,5 +49,7 @@ html(lang="en")
           a.close(href="#" data-dismiss="alert" aria-label="close") × 
       block content
         
+    .placeholder.my-5 ...
+          
     footer.footer.fixed-bottom.w-100.bg-faded
       p.text-muted.ml-4.mt-3 © Nalanpa 2017

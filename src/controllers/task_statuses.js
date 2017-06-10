@@ -17,5 +17,17 @@ export default (router, { TaskStatus }) => {
       } catch (e) {
         // ctx.render('taskStatuses/new', { f: buildFormObj(taskStatus, e) });
       }
+    })
+
+    .delete('taskStatusesDelete', '/taskStatuses/:name', async (ctx) => {
+      const url = ctx.request.url;
+      const name = url.substr(url.indexOf('/', 1) + 1);
+      try {
+        await TaskStatus.destroy({ where: { name } });
+        ctx.flash.set({ text: `TaskStatus ${name} has been deleted`, type: 'alert-success' });
+        ctx.redirect(router.url('root'));
+      } catch (e) {
+        //
+      }
     });
 };

@@ -22,11 +22,10 @@ describe('Task Statuses', () => {
   it('GET 200', async () => {
     const res = await request.agent(server)
       .get('/taskStatuses');
-
     expect(res).toHaveHTTPStatus(200);
   });
 
-  it('Add new status', async () => {
+  it('Add and delete', async () => {
     const name = faker.random.word();
     const form = { name };
     const countBefore = await TaskStatus.count();
@@ -46,7 +45,9 @@ describe('Task Statuses', () => {
     });
     expect(taskStatus.name).toBe(name);
 
-    await TaskStatus.destroy({ where: { name } });
+    const resDel = await request.agent(server)
+      .delete(`/taskStatuses/${name}`);
+    expect(resDel).toHaveHTTPStatus(302);
   });
 
   afterEach((done) => {

@@ -1,4 +1,4 @@
-## I've tried to adhere to following RoR-like naming convention
+## I adhere to following RoR-like naming convention
 
 For *'Entity'*
 
@@ -16,6 +16,7 @@ DELETE | /entities/:id/ | entitiesDelete |
 If there are multiply forms for editing, data routes are following:
 
 */entities/:id/edit/form1, /entities/:id/edit/form2* etc.
+
 *entitiesEditFor1, entitiesEditForm2* etc.
 
 

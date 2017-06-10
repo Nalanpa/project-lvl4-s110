@@ -1,0 +1,24 @@
+extends /layouts/application.pug
+
+
+block content
+ 
+  h2.mt-5 Tags
+
+  table.table.table-striped.table-hover.table-sm.mt-4
+    thead.thead-inverse
+      tr
+        th Tag
+        th Id
+        th Created
+        th Updated
+    tbody
+      each tag in tags
+        tr
+          td= tag.name
+          td= tag.id
+          td= formatDate(tag.createdAt)
+          td= formatDate(tag.updatedAt)
+          
+       
+          

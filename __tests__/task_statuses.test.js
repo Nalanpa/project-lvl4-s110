@@ -30,8 +30,6 @@ describe('Task Statuses', () => {
     const form = { name };
     const countBefore = await TaskStatus.count();
 
-    console.log('Statuses count >>> ', countBefore);
-
     const res = await request.agent(server)
       .post('/taskStatuses')
       .send({ form });

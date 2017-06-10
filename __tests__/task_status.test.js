@@ -34,7 +34,7 @@ describe('Task Statuses', () => {
     console.log('Statuses count >>> ', countBefore);
 
     const res = await request.agent(server)
-      .post('/taskStatus')
+      .post('/taskStatuses')
       .send({ form });
     expect(res).toHaveHTTPStatus(302);
 
@@ -48,29 +48,6 @@ describe('Task Statuses', () => {
 
     await TaskStatus.destroy({ where: { name } });
   });
-
-  // it('Sign In', async () => {
-  //   const form = { email, password };
-  //   const res = await request.agent(server)
-  //     .post('/session')
-  //     .send({ form });
-  //   expect(res).toHaveHTTPStatus(302);
-  // });
-  //
-  // it('Sign in (wrong password)', async () => {
-  //   const wrongPassword = faker.internet.password();
-  //   const form = { email, password: wrongPassword };
-  //   const res = await request.agent(server)
-  //     .post('/session')
-  //     .send({ form });
-  //   expect(res).toHaveHTTPStatus(302);
-  // });
-  //
-  // it('Sign Out', async () => {
-  //   const res = await request.agent(server)
-  //     .delete('/session');
-  //   expect(res).toHaveHTTPStatus(302);
-  // });
 
   afterEach((done) => {
     server.close();

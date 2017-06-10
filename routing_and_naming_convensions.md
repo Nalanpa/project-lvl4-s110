@@ -13,13 +13,14 @@ PUT or PUTCH | /entities/:id/ | entitiesUpdate |
 DELETE | /entities/:id/ | entitiesDelete |
 
 
+
 If there are multiply forms for editing, data routes are following:
 
-*/entities/:id/edit/form1, /entities/:id/edit/form2* etc.
+*/entities/:id/edit/form1, /entities/:id/edit/form2 ...*
 
-*entitiesEditFor1, entitiesEditForm2* etc.
+*entitiesEditFor1, entitiesEditForm2 ...*
 
 
 and views:
 
-*/entities/edit_form1, /entities/edit_form2*  etc.
+*/entities/edit_form1, /entities/edit_form2 ...*  

@@ -15,8 +15,8 @@ DELETE | /entities/:id/ | entitiesDelete |
 
 If there are multiply form for editing data routes are following:
 
-_ /entities/:id/edit/form1, /entities/:id/edit/form2 _  etc.
+* /entities/:id/edit/form1, /entities/:id/edit/form2 * etc.
 
 and views:
 
-_ /entities/edit_form1, /entities/edit_form2 _  etc.
+* /entities/edit_form1, /entities/edit_form2 *  etc.

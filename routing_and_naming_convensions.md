@@ -1,9 +1,9 @@
 ## I've tried to adhere to following RoR-like naming convention
 
-For 'Entity'
+For *'Entity'*
 
-### Verb | Route | Route Name | View (.pug)
-### -----|-------|------------|-----
+Verb | Route | Route Name | View (.pug)
+-----|-------|------------|-----
 GET  | /entities | entitiesIndex | entities/index
 POST | /entities | entitiesCreate |
 GET  | /entities/new | entitiesNew | entities/new

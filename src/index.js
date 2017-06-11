@@ -43,6 +43,7 @@ export default () => {
     }
   }));
   app.use(serve(path.join(__dirname, '..', 'public')));
+  app.use(serve(path.join(__dirname, '..', 'public', 'assets')));
 
   if (process.env.NODE_ENV !== 'test') {
     app.use(middleware({

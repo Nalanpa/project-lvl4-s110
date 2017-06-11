@@ -20,26 +20,34 @@ html(lang="en")
             a.navbar-brand(href='/' aria-hidden='true') Task Manager
           li.nav-item
             a.nav-link(href=urlFor('usersIndex'))
-              img.link-icon(src='/assets/users.gif')
+              img.link-icon(src='users.gif')
               | Users 
+          li.nav-item
+            a.nav-link(href=urlFor('usersIndex'))
+              img.link-icon(src='tasks.png')
+              | Tasks 
+          li.nav-item
+            a.nav-link(href=urlFor('usersIndex'))
+              img.link-icon(src='tags.png')
+              | Tags
         ul.navbar-nav
           if isSignedIn()
             li.nav-item
               a.nav-link(href=urlFor('accountEdit'))
-                img.link-icon(src='/assets/user.gif')
-                |My account 
+                img.link-icon(src='user.gif')
+                | My account 
             li.nav-item
               a.nav-link(href=urlFor('sessionDelete') data-method='delete' rel='nofollow')
-                img.link-icon(src='/assets/logout.gif')
+                img.link-icon(src='logout.gif')
                 | Sign Out 
           else
             li.nav-item
               a.nav-link(href=urlFor('sessionNew'))
-                img.link-icon(src='/assets/login.gif')
+                img.link-icon(src='login.gif')
                 | Sign In 
             li.nav-item
               a.nav-link(href=urlFor('usersNew'))
-                img.link-icon(src='/assets/signup.gif')
+                img.link-icon(src='signup.gif')
                 | Sign Up 
               
     .container

@@ -23,6 +23,11 @@ body {
   background-color: #ddd;
 }
 
+.nav-item {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
 .splash-screen {
   height: 30rem;
   margin-left: 2.7rem;

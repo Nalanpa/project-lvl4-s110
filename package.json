@@ -68,7 +68,7 @@
     "koa-methodoverride": "*",
     "koa-pug": "3.0.0-2",
     "koa-router": "next",
-    "koa-static": "*",
+    "koa-static": "^3.0.0",
     "koa-webpack": "*",
     "lodash": "*",
     "pg": "*",

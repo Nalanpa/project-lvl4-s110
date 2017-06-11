@@ -10,13 +10,11 @@ block content
       tr
         th Task Status
         th Id
-        th Created
-        th Updated
     tbody
       each taskStatus in taskStatuses
         tr
-          td= taskStatus.name
+          td
+            img.link-icon(src=`${taskStatus.name}.png`)
+            | #{taskStatus.name}
           td= taskStatus.id
-          td= formatDate(taskStatus.createdAt)
-          td= formatDate(taskStatus.updatedAt)
           

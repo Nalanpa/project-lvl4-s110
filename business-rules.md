@@ -7,7 +7,7 @@
 4. Anybody can take (assign to himself) a __"New"__ _Task_
 5. Author can change _Status_ of his _Task_
 6. Workflow (_Status_ changing):
-  * New -> __Processing__ || __Testing__
+  * __New__ -> __Processing__ || __Testing__
   * __Processing__ -> __Testing__ || __Done__
   * __Testing__ -> __Processing__ || __Done__
   * __Done__ ->|

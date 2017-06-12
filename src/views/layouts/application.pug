@@ -35,7 +35,7 @@ html(lang="en")
             li.nav-item
               a.nav-link(href=urlFor('accountEdit'))
                 img.link-icon(src='user.gif')
-                | My account 
+                | #{currentUser()} 
             li.nav-item
               a.nav-link(href=urlFor('sessionDelete') data-method='delete' rel='nofollow')
                 img.link-icon(src='logout.gif')

@@ -19,7 +19,7 @@ export default (router, { Tag }) => {
       }
     })
 
-    .delete('tagsDelete', '/tags/:name', async (ctx) => {
+    .delete('tagsDelete', '/tags/:id', async (ctx) => {
       const url = ctx.request.url;
       const name = url.substr(url.indexOf('/', 1) + 1);
       try {

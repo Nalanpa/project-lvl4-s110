@@ -3,7 +3,7 @@ import encrypt from '../lib/secure';
 
 export default (router, { User }) => {
   router
-    .get('accountEdit', '/account/edit', async (ctx) => {
+    .get('accountEdit', '/account/user/edit', async (ctx) => {
       const id = ctx.session.userId;
       if (!id) {
         ctx.redirect(router.url('sessionNew'));
@@ -14,7 +14,7 @@ export default (router, { User }) => {
     })
 
 
-    .get('accountChangePassword', '/account/change_password', async (ctx) => {
+    .get('accountChangePassword', '/account/password/edit', async (ctx) => {
       const id = ctx.session.userId;
       if (!id) {
         ctx.redirect(router.url('sessionNew'));
@@ -25,7 +25,7 @@ export default (router, { User }) => {
     })
 
 
-    .put('accountUpdateData', '/account/data', async (ctx) => {
+    .put('accountUpdateData', '/account/user', async (ctx) => {
       const id = ctx.session.userId;
       if (!id) {
         ctx.redirect(router.url('sessionNew'));

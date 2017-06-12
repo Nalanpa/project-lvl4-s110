@@ -19,7 +19,7 @@ export default (router, { TaskStatus }) => {
       }
     })
 
-    .delete('taskStatusesDelete', '/taskStatuses/:name', async (ctx) => {
+    .delete('taskStatusesDelete', '/taskStatuses/:id', async (ctx) => {
       const url = ctx.request.url;
       const name = url.substr(url.indexOf('/', 1) + 1);
       try {

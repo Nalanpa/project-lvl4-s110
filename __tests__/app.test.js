@@ -20,9 +20,9 @@ describe('requests', () => {
     const res2 = await request.agent(server)
       .get('/users');
     const res3 = await request.agent(server)
-      .get('/account/edit');
+      .get('/account/user/edit');
     const res4 = await request.agent(server)
-      .get('/account/change_password');
+      .get('/account/password/edit');
     const res5 = await request.agent(server)
       .get('/users/new');
     const res6 = await request.agent(server)

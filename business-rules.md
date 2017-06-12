@@ -11,7 +11,7 @@
   * __Processing__ -> __Testing__ || __Done__
   * __Testing__ -> __Processing__ || __Done__
   * __Done__ ->|
-7. Worker (who have assigned __"Processing"__ _Task_ to him) can change status to __"Testing"__   
-6. Tester (who have assigned __"Testing"__ _Task_ to him) can change status to __"Processing"__    
+7. User who have assigned __"Processing"__ _Task_ to him can change status to __"Testing"__   
+6. User who have assigned __"Testing"__ _Task_ to him can change status to __"Processing"__    
 6. Only author can change _Status_ to __"Done"__
-7. _Tags_ can be assigned to _Task_ only by author or person who have assigned this _Task_ to him
+7. _Tags_ can be assigned to _Task_ only by author or user who have assigned this _Task_ to him

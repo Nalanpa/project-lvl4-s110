@@ -17,23 +17,25 @@ export default connect => connect.define('Task', {
     },
   },
   description: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
   },
   status: {
     type: Sequelize.STRING,
     allowNull: false,
+    defaultValue: 'New',
     validate: {
       notEmpty: { msg: 'Cannot be empty' },
     },
   },
   creator: {
-    type: Sequelize.STRING,
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
-  assignedTo: {
-  },
-  tags: {
-  },
+  // assignedTo: {
+  //   type: Sequelize.INTEGER,
+  // },
+  // tags: {
+  // },
 }, {
   freezeTableName: true,
 });

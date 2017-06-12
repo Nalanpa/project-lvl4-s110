@@ -6,7 +6,7 @@ import './icons/logout.gif';
 import './icons/signup.gif';
 import './icons/users.gif';
 import './icons/splash_screen.gif';
-import './icons/completed.png';
+import './icons/done.png';
 import './icons/new.png';
 import './icons/processing.png';
 import './icons/testing.png';

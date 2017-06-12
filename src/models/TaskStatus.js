@@ -9,5 +9,6 @@ export default connect => connect.define('TaskStatus', {
     },
   },
 }, {
-  freezeTableName: true, // Model tableName will be the same as the model name
+  freezeTableName: true,
+  timestamps: false,
 });

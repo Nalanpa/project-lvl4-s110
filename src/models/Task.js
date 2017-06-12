@@ -1,12 +1,5 @@
 import Sequelize from 'sequelize';
-
-// Task (name, description, status, creator, assignedTo, tags)
-// name: обязательно
-// description: не обязательно
-// status: обязательно, по умолчанию 'новый'. Список берется из справочника TaskStatus
-// creator: обязательно, автор задачи
-// assignedTo: тот на кого поставлена задача
-// tags: связь m2m с тегами
+import moment from 'moment';
 
 export default connect => connect.define('Task', {
   name: {
@@ -19,23 +12,28 @@ export default connect => connect.define('Task', {
   description: {
     type: Sequelize.TEXT,
   },
-  status: {
-    type: Sequelize.STRING,
+  statusId: {
+    type: Sequelize.INTEGER,
+    defaultValue: 1,
     allowNull: false,
-    defaultValue: 'New',
-    validate: {
-      notEmpty: { msg: 'Cannot be empty' },
-    },
   },
-  creator: {
+  creatorId: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  // assignedTo: {
-  //   type: Sequelize.INTEGER,
-  // },
-  // tags: {
-  // },
+  assignedToId: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
 }, {
+  getterMethods: {
+    created: function created() {
+      return moment(this.createdAt).format('MMMM Do YYYY, h:mm:ss a');
+    },
+    status: async function statusName() {
+      const status = await this.getStatus();
+      return status.dataValues.name;
+    },
+  },
   freezeTableName: true,
 });

@@ -1,11 +1,12 @@
 extends /layouts/application.pug
 
+
 block content
   
   h2.mt-5.ml-1 Tasks
   
-  .row.justify-content-center.px-3
-    .col-lg-10.col-12.bg-faded.pt-4
+  .row.justify-content-center.px-3.border-top-2
+    .col-lg-9.col-9.bg-faded.pt-4
       +formFilter(f, { url: urlFor('tasks'), method: 'get'})
         .d-inline-block
           +select(f, 'creator', { name: 'creator', items: users, label: 'Creator' })
@@ -17,17 +18,19 @@ block content
           +select(f, 'assignedTo', { name: 'assignedTo', items: users, label: 'Assigned to' })
         .d-inline-block
           +button(f, 'Search')
-        if isSignedIn()
-          .d-inline-block.ml-4
-            input(class='btn btn-primary-outline btn-success btn-block' value='My tasks')
-    .col-lg-2.col-12.new-task-col.pl-4
-      .form-container
-        +formFor(f, { url: urlFor('newTasks'), method: 'get'})
-          h4.justify-content-center.mt-4 New task
-          if isSignedIn()
-            +button(f, 'Create')
-          else
-            p.my-4 Please sign in first! 
+    .col-lg-3.col-3.bg-faded.pt-4
+      if isSignedIn()
+        .form-container
+          - const myTasksUrl = urlFor('userTasks', { id: currentUserId() });
+          h5.mt-2.mb-3
+            a(href=myTasksUrl) 
+              img.link-icon(src='/assets/tasks.png')
+              | My tasks
+          h5.mt-2.mb-3
+            a(href=urlFor('newTask')) 
+              img.link-icon(src='/assets/new_task.png')
+              | Create new Task
+    
         
   table.table.table-striped.table-hover.table-sm.mt-4
     thead.thead-inverse

@@ -12,3 +12,4 @@ import './icons/processing.png';
 import './icons/testing.png';
 import './icons/tags.png';
 import './icons/tasks.png';
+import './icons/new_task.png';

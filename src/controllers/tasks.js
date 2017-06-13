@@ -16,6 +16,8 @@ const getUsers = async (User, id) => {
 
 const getFilters = (query, { User, TaskStatus, Tag }) => {
   if (!query) return {};
+
+  console.log('>>> ', query);
   const filters = [];
   const creator = query['form[creator]'];
   const assignedTo = query['form[assignedTo]'];

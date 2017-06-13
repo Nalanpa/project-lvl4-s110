@@ -4,7 +4,8 @@ import session from './session';
 import account from './account';
 import taskStatuses from './task_statuses';
 import tags from './tags';
+import tasks from './tasks';
 
-const controllers = [welcome, users, session, account, taskStatuses, tags];
+const controllers = [welcome, users, session, account, taskStatuses, tags, tasks];
 
 export default (router, container) => controllers.forEach(f => f(router, container));

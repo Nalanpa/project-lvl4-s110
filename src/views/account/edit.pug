@@ -11,11 +11,14 @@ block content
           a(href=urlFor('accountChangePassword')) Change password
         p.mt-2.mb-3
           a.text-danger(data-confirm="Are you sure you want to delete your account?" href=urlFor('accountDelete') data-method='delete' rel='nofollow') Delete my account      
-    .col-lg-4.col-12
-      +formFor(f, { url: urlFor('accountUpdateData'), method: 'put', title: 'Edit data' })
-        +input(f, 'firstName', { label : 'First Name:'})
-        +input(f, 'lastName', { label : 'Last Name:'})
-        +input(f, 'email', { label : 'Email:'})
-        +button(f, 'Edit')
+    .col-lg-4.col-12.p-4
+      .container.bg-faded.px-4.py-3
+        +formFor(f, { url: urlFor('accountUpdateData'), method: 'put' })
+          h2.mb-4.mt-1 Edit data
+          +input(f, 'firstName', { label : 'First Name:'})
+          +input(f, 'lastName', { label : 'Last Name:'})
+          +input(f, 'email', { label : 'Email:'})
+          .button-container.my-4
+            +button(f, 'Edit')
         
    

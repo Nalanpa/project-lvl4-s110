@@ -20,34 +20,34 @@ html(lang="en")
             a.navbar-brand(href='/' aria-hidden='true') Task Manager
           li.nav-item
             a.nav-link(href=urlFor('usersIndex'))
-              img.link-icon(src='users.gif')
+              img.link-icon(src='/assets/users.gif')
               | Users 
           li.nav-item
-            a.nav-link(href=urlFor('usersIndex'))
-              img.link-icon(src='tasks.png')
+            a.nav-link(href=urlFor('tasks'))
+              img.link-icon(src='/assets/tasks.png')
               | Tasks 
           li.nav-item
-            a.nav-link(href=urlFor('usersIndex'))
-              img.link-icon(src='tags.png')
+            a.nav-link(href="#")
+              img.link-icon(src='/assets/tags.png')
               | Tags
         ul.navbar-nav
           if isSignedIn()
             li.nav-item
               a.nav-link(href=urlFor('accountEdit'))
-                img.link-icon(src='user.gif')
-                | #{currentUser()} 
+                img.link-icon(src='/assets/user.gif')
+                | #{currentUserName()} 
             li.nav-item
               a.nav-link(href=urlFor('sessionDelete') data-method='delete' rel='nofollow')
-                img.link-icon(src='logout.gif')
+                img.link-icon(src='/assets/logout.gif')
                 | Sign Out 
           else
             li.nav-item
               a.nav-link(href=urlFor('sessionNew'))
-                img.link-icon(src='login.gif')
+                img.link-icon(src='/assets/login.gif')
                 | Sign In 
             li.nav-item
               a.nav-link(href=urlFor('usersNew'))
-                img.link-icon(src='signup.gif')
+                img.link-icon(src='/assets/signup.gif')
                 | Sign Up 
               
     .container
@@ -57,7 +57,7 @@ html(lang="en")
           a.close(href="#" data-dismiss="alert" aria-label="close") × 
       block content
         
-    .placeholder.my-5 ...
+    .placeholder.my-5 .
           
     footer.footer.fixed-bottom.w-100.bg-faded
       p.text-muted.ml-4.mt-3 © Nalanpa 2017

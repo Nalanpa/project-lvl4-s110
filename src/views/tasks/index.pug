@@ -1,0 +1,51 @@
+extends /layouts/application.pug
+
+block content
+  
+  h2.mt-5.ml-1 Tasks
+  
+  .row.justify-content-center.px-3
+    .col-lg-10.col-12.bg-faded.pt-4
+      +formFilter(f, { url: urlFor('tasks'), method: 'get'})
+        .d-inline-block
+          +select(f, 'creator', { name: 'creator', items: users, label: 'Creator' })
+        .d-inline-block
+          +input(f, 'tag', { name: 'tag', as: 'text', label: 'Tag' })
+        .d-inline-block
+          +select(f, 'status', { name: 'status', items: statuses, label: 'Status' })
+        .d-inline-block
+          +select(f, 'assignedTo', { name: 'assignedTo', items: users, label: 'Assigned to' })
+        .d-inline-block
+          +button(f, 'Search')
+        if isSignedIn()
+          .d-inline-block.ml-4
+            input(class='btn btn-primary-outline btn-success btn-block' value='My tasks')
+    .col-lg-2.col-12.new-task-col.pl-4
+      .form-container
+        +formFor(f, { url: urlFor('newTasks'), method: 'get'})
+          h4.justify-content-center.mt-4 New task
+          if isSignedIn()
+            +button(f, 'Create')
+          else
+            p.my-4 Please sign in first! 
+        
+  table.table.table-striped.table-hover.table-sm.mt-4
+    thead.thead-inverse
+      tr
+        th.pl-4 Name
+        th Description
+        th Status
+        th Assigned to
+        th Creator
+        th Created At
+    tbody
+      each task in tasks
+        tr
+          td.pl-4
+            a.no-color(href=urlFor('task', task.id))= task.name
+          td= task.description
+          td
+            img.link-icon(src=`/assets/${_.find(statuses, { id: task.statusId }).name}.png`) 
+          td= task.assignedToId ? _.find(users, { id: task.assignedToId }).name : ''
+          td= task.creatorId ? _.find(users, { id: task.creatorId }).name : ''
+          td= task.created

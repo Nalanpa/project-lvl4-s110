@@ -2,11 +2,13 @@ extends /layouts/application.pug
 
 block content
   .row.justify-content-center
-    .col-lg-4.col-12.p-4
-      +formFor(f, { url: urlFor('usersCreate'), method: 'post', title: 'New user' })
+    .col-lg-4.col-12.p-5
+      +formFor(f, { url: urlFor('usersCreate'), method: 'post' })
+        h2.my-4 New User
         +input(f, 'email', { label : 'Email:'})
         +input(f, 'firstName', { label : 'First Name:'})
         +input(f, 'lastName', { label : 'Last Name:'})
         +input(f, 'password', { as: 'password', label: 'Password:' })
-        +button(f, 'Submit')
+        .button-container.my-4
+          +button(f, 'Submit')
     

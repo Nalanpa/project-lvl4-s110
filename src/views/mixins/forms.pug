@@ -1,14 +1,43 @@
 - const getInputName = (f, property) => `${f.name}[${property}]`
 - const formatDate = (date) => date.toLocaleDateString("en-us", { year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})
 
-
 mixin formFor(f, options = {})
-  .row.justify-content-center.pb-5
-    .col-12.col-lg-12.col-xl-12.bg-faded.p-4.m-4
+  .row.justify-content-center
+    .col-12.col-lg-12.col-xl-12.bg-faded
       form(action=_.get(options, 'url') method="post")
         input(type="hidden" name="_method" value=_.get(options, 'method', 'get'))
-        h2(class='mb-4')= _.get(options, 'title') || ''
         block
+
+mixin formFilter(f, options = {})
+  form(class='bg-faded' action=_.get(options, 'url') method=_.get(options, 'method', 'get'))
+    block
+
+mixin button(f, text = 'Save', type = 'submit')
+  .form-group
+    input(class='btn btn-primary-outline btn-success btn-block' type= `${type}` value=`${text}`)
+      
+
+mixin select(f, property, options = { items: [], selectId: 0 })
+  - const value = f.object[property] === undefined ? options.selectId : f.object[property]
+  .form-group(class=(f.errors[property] && 'has-danger'))
+    label= options['label'] || property
+    select(name=getInputName(f, property, options.name) class='form-control select required')
+      each item in options.items
+        if (value == item.id)
+          option(selected value=item.id)= item.name
+        else
+          option(value=item.id)= item.name
+    if f.errors[property]
+      .form-control-feedback= f.errors[property].map(({ message }) => message).join('. ')
+      
+
+mixin textarea(f, property, options = { text: '' })
+  - const value = f.object[property] === undefined ? '' : f.object[property]
+  .form-group(class=(f.errors[property] && 'has-danger'))
+    lable= property
+    textarea(name=getInputName(f, property, options.name) class='form-control text optional')= value
+    if f.errors[property]
+      .form-control-feedback= f.errors[property].map(({ message }) => message).join('. ')
 
 mixin input(f, property, options = { as: 'text' })
   - const value = f.object[property] === undefined ? '' : f.object[property]
@@ -17,8 +46,3 @@ mixin input(f, property, options = { as: 'text' })
     input(name=getInputName(f, property) class='form-control' type=options['as'] value=`${value}`)
     if f.errors[property]
       .form-control-feedback= f.errors[property].map(({ message }) => message).join('. ')
-
-mixin button(f, text = 'Save', type = 'submit')
-  .form-group
-    input(class='mt-4 btn btn-primary-outline btn-primary btn-block' type= `${type}` value=`${text}`)
-      

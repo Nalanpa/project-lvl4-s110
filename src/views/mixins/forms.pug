@@ -14,7 +14,12 @@ mixin formFilter(f, options = {})
 
 mixin button(f, text = 'Save', type = 'submit')
   .form-group
-    input(class='btn btn-primary-outline btn-success btn-block' type= `${type}` value=`${text}`)
+    input(class='btn btn-primary-outline btn-info btn-block' type= `${type}` value=`${text}`)
+      
+mixin field(name, value)
+  p.mt-2.mb-3
+    strong= name + ': ' 
+    em= value
       
 
 mixin select(f, property, options = { items: [], selectId: 0 })
@@ -29,12 +34,12 @@ mixin select(f, property, options = { items: [], selectId: 0 })
           option(value=item.id)= item.name
     if f.errors[property]
       .form-control-feedback= f.errors[property].map(({ message }) => message).join('. ')
-      
+
 
 mixin textarea(f, property, options = { text: '' })
   - const value = f.object[property] === undefined ? '' : f.object[property]
   .form-group(class=(f.errors[property] && 'has-danger'))
-    lable= property
+    label= options['label'] || property
     textarea(name=getInputName(f, property, options.name) class='form-control text optional')= value
     if f.errors[property]
       .form-control-feedback= f.errors[property].map(({ message }) => message).join('. ')

@@ -2,7 +2,7 @@
 
 export default (router, { Tag }) => {
   router
-    .get('tags', '/tags', async (ctx) => {
+    .get('tagsIndex', '/tags', async (ctx) => {
       const tags = await Tag.findAll();
       ctx.render('tags', { tags });
     })

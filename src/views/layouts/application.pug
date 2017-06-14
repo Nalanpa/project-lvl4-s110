@@ -23,11 +23,11 @@ html(lang="en")
               img.link-icon(src='/assets/users.gif')
               | Users 
           li.nav-item
-            a.nav-link(href=urlFor('tasks'))
+            a.nav-link(href=urlFor('tasksIndex'))
               img.link-icon(src='/assets/tasks.png')
               | Tasks 
           li.nav-item
-            a.nav-link(href="#")
+            a.nav-link(href=urlFor('tagsIndex'))
               img.link-icon(src='/assets/tags.png')
               | Tags
         ul.navbar-nav
@@ -61,3 +61,4 @@ html(lang="en")
           
     footer.footer.fixed-bottom.w-100.bg-faded
       p.text-muted.ml-4.mt-3 © Nalanpa 2017
+      

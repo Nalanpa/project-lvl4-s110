@@ -23,16 +23,11 @@ export default connect => connect.define('Task', {
   },
   assignedToId: {
     type: Sequelize.INTEGER,
-    allowNull: false,
   },
 }, {
   getterMethods: {
     created: function created() {
       return moment(this.createdAt).format('MMMM Do YYYY, h:mm:ss a');
-    },
-    status: async function statusName() {
-      const status = await this.getStatus();
-      return status.dataValues.name;
     },
   },
   freezeTableName: true,

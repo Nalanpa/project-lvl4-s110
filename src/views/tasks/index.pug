@@ -3,11 +3,11 @@ extends /layouts/application.pug
 
 block content
   
-  h2.mt-5.ml-1 Tasks
+  h2.mt-5.ml-1 #{title}
   
   .row.justify-content-center.px-3.border-top-2
     .col-lg-9.col-9.bg-faded.pt-4
-      +formFilter(f, { url: urlFor('tasks'), method: 'get'})
+      +formFilter(f, { url: urlFor('tasksIndex'), method: 'get'})
         .d-inline-block
           +select(f, 'creator', { name: 'creator', items: users, label: 'Creator' })
         .d-inline-block
@@ -21,7 +21,7 @@ block content
     .col-lg-3.col-3.bg-faded.pt-4
       if isSignedIn()
         .form-container
-          - const myTasksUrl = urlFor('userTasks', { id: currentUserId() });
+          - const myTasksUrl = urlFor('usersTasks', { id: currentUserId() });
           h5.mt-2.mb-3
             a(href=myTasksUrl) 
               img.link-icon(src='/assets/tasks.png')
@@ -43,10 +43,14 @@ block content
         th Created At
     tbody
       each task in tasks
+        - const maxDescriptionLength = 50
+        - const maxNameLength = 30
+        - const description = task.description.length > maxDescriptionLength ? `${task.description.substr(0, maxDescriptionLength)}...` : task.description
+        - const name = task.name.length > maxNameLength ? `${task.name.substr(0, maxNameLength)}...` : task.name
         tr
           td.pl-4
-            a.no-color(href=urlFor('task', task.id))= task.name
-          td= task.description
+            a.no-color(href=urlFor('tasksShow', task.id))= name
+          td= description
           td
             img.link-icon(src=`/assets/${_.find(statuses, { id: task.statusId }).name}.png`) 
           td= task.assignedToId ? _.find(users, { id: task.assignedToId }).name : ''

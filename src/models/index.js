@@ -19,8 +19,8 @@ export default (connect) => {
   models.User.hasMany(models.Task, { foreignKey: 'assignedToId', as: 'assignedTo' });
   models.Task.belongsTo(models.User, { foreignKey: 'assignedToId', as: 'assignedTo' });
 
-  models.TaskStatus.hasMany(models.Task, { foreignKey: 'statusId' });
-  models.Task.belongsTo(models.TaskStatus, { foreignKey: 'statusId' });
+  models.TaskStatus.hasMany(models.Task, { foreignKey: 'statusId', as: 'status' });
+  models.Task.belongsTo(models.TaskStatus, { foreignKey: 'statusId', as: 'status' });
 
   models.Task.belongsToMany(models.Tag, { through: 'TaskTag' });
   models.Tag.belongsToMany(models.Task, { through: 'TaskTag' });

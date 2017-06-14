@@ -10,9 +10,12 @@ block content
         th Full Name
         th Email
         th Created At
+        th Tasks
     tbody
       each user in users
         tr
           td= user.fullName
           td= user.email
           td= formatDate(user.createdAt)
+          td
+            a(href=`${urlFor('usersTasks', { id: user.id })}`) tasks

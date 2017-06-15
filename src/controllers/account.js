@@ -31,7 +31,6 @@ export default (router, { User }) => {
         ctx.redirect(router.url('sessionNew'));
         return;
       }
-
       const user = await User.findById(id);
       const form = ctx.request.body.form;
 

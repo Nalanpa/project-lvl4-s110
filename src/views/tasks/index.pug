@@ -7,19 +7,17 @@ block content
   
   .row.justify-content-center.px-3.border-top-2
     .col-lg-9.col-9.bg-faded.pt-4
-      +formFilter(f, { url: urlFor('tasksIndex'), method: 'get'})
+      +formFor(f, { url: urlFor('tasksIndex'), method: 'get'})
         .d-inline-block
-          +select(f, 'creator', { name: 'creator', items: users, label: 'Creator' })
+          +select(f, 'creator', { items: users, label: 'Creator' })
         .d-inline-block
-          +input(f, 'tag', { name: 'tag', as: 'text', label: 'Tag' })
+          +input(f, 'tag', { as: 'text', label: 'Tag' })
         .d-inline-block
-          +select(f, 'status', { name: 'status', items: statuses, label: 'Status' })
+          +select(f, 'status', { items: statuses, label: 'Status' })
         .d-inline-block
-          +select(f, 'assignedTo', { name: 'assignedTo', items: users, label: 'Assigned to' })
+          +select(f, 'assignedTo', { items: users, label: 'Assigned to' })
         .d-inline-block
           +button(f, 'Search')
-        .d-inline-block
-          +button(f, 'Clear', 'reset')
     .col-lg-3.col-3.bg-faded.pt-4
       if isSignedIn()
         .form-container

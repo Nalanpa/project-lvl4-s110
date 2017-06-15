@@ -1,4 +1,5 @@
 import url from 'url';
+// import _ from 'lodash';
 import buildFormObj from '../lib/formObjectBuilder';
 import requiredAuth from '../lib/requiredAuth';
 
@@ -15,7 +16,6 @@ const getUsers = async (User, id) => {
 
 const getFilters = (query, { User, TaskStatus, Tag }) => {
   if (!query) return {};
-
   const filters = [];
   const creator = Number(query.creator);
   const assignedTo = Number(query.assignedTo);
@@ -77,7 +77,7 @@ export default (router, { User, TaskStatus, Task, Tag }) => {
 
   .get('tasksIndex', '/tasks', async (ctx) => {
     const currentUser = ctx.session.userId;
-    const { query } = url.parse(ctx.request.url, true);
+    const query = ctx.request.body.form;
     const filters = getFilters(query, { User, TaskStatus, Tag });
     filters.order = ['Task.createdAt'];
     const tasks = await Task.findAll(filters);
@@ -85,7 +85,7 @@ export default (router, { User, TaskStatus, Task, Tag }) => {
     const statuses = [{ id: 0, name: '-- all --' }, ...await TaskStatus.findAll()];
     const title = await getTitle(query, { User, TaskStatus });
 
-    ctx.render('tasks', { f: buildFormObj(query), tasks, users, statuses, title });
+    ctx.render('tasks', { f: buildFormObj({}), tasks, users, statuses, title });
   })
 
   .get('tasksNew', '/tasks/new', requiredAuth, async (ctx) => {

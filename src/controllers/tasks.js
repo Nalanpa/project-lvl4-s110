@@ -1,5 +1,4 @@
 import url from 'url';
-// import _ from 'lodash';
 import buildFormObj from '../lib/formObjectBuilder';
 import requiredAuth from '../lib/requiredAuth';
 
@@ -18,10 +17,10 @@ const getFilters = (query, { User, TaskStatus, Tag }) => {
   if (!query) return {};
 
   const filters = [];
-  const creator = Number(query['form[creator]']);
-  const assignedTo = Number(query['form[assignedTo]']);
-  const status = Number(query['form[status]']);
-  const tag = query['form[tag]'];
+  const creator = Number(query.creator);
+  const assignedTo = Number(query.assignedTo);
+  const status = Number(query.status);
+  const tag = query.tag;
 
   if (creator && creator > 0) {
     filters.push({ model: User, as: 'creator', where: { id: creator } });
@@ -42,10 +41,10 @@ const getTitle = async (query, { User, TaskStatus }) => {
   if (!query) return {};
 
   let title = 'Tasks';
-  const creatorId = Number(query['form[creator]']);
-  const assignedToId = Number(query['form[assignedTo]']);
-  const statusId = Number(query['form[status]']);
-  const tag = query['form[tag]'];
+  const creatorId = Number(query.creator);
+  const assignedToId = Number(query.assignedTo);
+  const statusId = Number(query.status);
+  const tag = query.tag;
 
   if (creatorId && creatorId > 0) {
     const creator = await User.findById(creatorId);
@@ -62,6 +61,7 @@ const getTitle = async (query, { User, TaskStatus }) => {
   if (tag) {
     title = `${title} with tag '${tag}'`;
   }
+
   return title;
 };
 
@@ -169,6 +169,8 @@ export default (router, { User, TaskStatus, Task, Tag }) => {
       ctx.redirect(router.url('tasksShow', taskId));
     } catch (e) {
       ctx.flash.set({ text: 'Something wrong', type: 'alert-danger' });
+      console.log('Error >>> ', e);
+      console.log('form >>> ', form);
       const users = await getUsers(User, id);
       const statuses = await TaskStatus.findAll();
       ctx.render('tasks/edit', { f: buildFormObj(form, e), task, users, statuses });

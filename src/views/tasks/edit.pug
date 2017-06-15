@@ -9,9 +9,9 @@ block content
           +input(f, 'name', { label : 'Name:'})
           +textarea(f, 'description', { label: 'Description:' })
           p.mt-2.mb-3
-            +select(f, 'status', { name: 'status', items: statuses, selectId: task.statusId, label: 'Status:' })
+            +select(f, 'status', { items: statuses, selectId: task.statusId, label: 'Status:' })
           p.mt-2.mb-3
-            +select(f, 'assignedTo', { name: 'assignedTo', items: users, selectId: task.assignedToId, label: 'Assigned to:' })
+            +select(f, 'assignedTo', { items: users, selectId: task.assignedToId, label: 'Assigned to:' })
           .button-container.my-4
             +button(f, 'Edit')
         

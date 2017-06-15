@@ -1,4 +1,4 @@
-- const getInputName = (f, property) => `${f.name}[${property}]`
+- const getInputName = (f, property) => `form[${property}]`;
 - const formatDate = (date) => date.toLocaleDateString("en-us", { year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})
 
 mixin formFor(f, options = {})
@@ -20,13 +20,22 @@ mixin field(name, value)
   p.mt-2.mb-3
     strong= name + ': ' 
     em= value
+    
+mixin input(f, property, options = { as: 'text' })
+  - const value = f.object[property] === undefined ? '' : f.object[property]
+  .form-group(class=(f.errors[property] && 'has-danger'))
+    label= options['label'] || property
+    p= '>>> ' + getInputName(f, property) 
+    input(name=getInputName(f, property) class='form-control' type=options['as'] value=`${value}`)
+    if f.errors[property]
+      .form-control-feedback= f.errors[property].map(({ message }) => message).join('. ')
       
 
 mixin select(f, property, options = { items: [], selectId: 0 })
   - const value = f.object[property] === undefined ? options.selectId : f.object[property]
   .form-group(class=(f.errors[property] && 'has-danger'))
     label= options['label'] || property
-    select(name=getInputName(f, property, options.name) class='form-control select required')
+    select(name=property class='form-control select required')
       each item in options.items
         if (value == item.id)
           option(selected value=item.id)= item.name
@@ -40,14 +49,6 @@ mixin textarea(f, property, options = { text: '' })
   - const value = f.object[property] === undefined ? '' : f.object[property]
   .form-group(class=(f.errors[property] && 'has-danger'))
     label= options['label'] || property
-    textarea(name=getInputName(f, property, options.name) class='form-control text optional')= value
-    if f.errors[property]
-      .form-control-feedback= f.errors[property].map(({ message }) => message).join('. ')
-
-mixin input(f, property, options = { as: 'text' })
-  - const value = f.object[property] === undefined ? '' : f.object[property]
-  .form-group(class=(f.errors[property] && 'has-danger'))
-    label= options['label'] || property
-    input(name=getInputName(f, property) class='form-control' type=options['as'] value=`${value}`)
+    textarea(name=getInputName(f, property) class='form-control text optional')= value
     if f.errors[property]
       .form-control-feedback= f.errors[property].map(({ message }) => message).join('. ')

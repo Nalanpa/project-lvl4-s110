@@ -3,7 +3,7 @@ extends /layouts/application.pug
 
 block content
   
-  h2.mt-5.ml-1 #{title}
+  h3.mt-5.ml-1.text-faded #{title}
   
   .row.justify-content-center.px-3.border-top-2
     .col-lg-9.col-9.bg-faded.pt-4
@@ -55,4 +55,4 @@ block content
             img.link-icon(src=`/assets/${_.find(statuses, { id: task.statusId }).name}.png`) 
           td= task.assignedToId ? _.find(users, { id: task.assignedToId }).name : ''
           td= task.creatorId ? _.find(users, { id: task.creatorId }).name : ''
-          td= task.created
+          td= task.createdShort

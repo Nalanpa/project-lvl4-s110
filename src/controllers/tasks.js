@@ -27,21 +27,54 @@ const getFilters = (query, { User, TaskStatus, Tag }) => {
     filters.push({ model: User, as: 'creator', where: { id: creator } });
   }
   if (assignedTo && assignedTo > 0) {
-    filters.push({ model: User, as: 'assignedTo', where: { id: Number(assignedTo) } });
+    filters.push({ model: User, as: 'assignedTo', where: { id: assignedTo } });
   }
   if (status && status > 0) {
-    filters.push({ model: TaskStatus, where: { id: Number(status) } });
+    filters.push({ model: TaskStatus, as: 'status', where: { id: status } });
   }
   if (tag) {
     filters.push({ model: Tag, where: { name: { $like: `%${tag}%` } } });
   }
-
   return { include: filters };
+};
+
+const getTitle = async (query, { User, TaskStatus }) => {
+  if (!query) return {};
+
+  let title = 'Tasks';
+  const creatorId = Number(query['form[creator]']);
+  const assignedToId = Number(query['form[assignedTo]']);
+  const statusId = Number(query['form[status]']);
+  const tag = query['form[tag]'];
+
+  if (creatorId && creatorId > 0) {
+    const creator = await User.findById(creatorId);
+    title = `${title} created by '${creator.fullName}'`;
+  }
+  if (assignedToId && assignedToId > 0) {
+    const worker = await User.findById(assignedToId);
+    title = `${title} assigned to '${worker.fullName}'`;
+  }
+  if (statusId && statusId > 0) {
+    const status = await TaskStatus.findById(statusId);
+    title = `${title} with status '${status.name}'`;
+  }
+  if (tag) {
+    title = `${title} with tag '${tag}'`;
+  }
+  return title;
 };
 
 
 export default (router, { User, TaskStatus, Task, Tag }) => {
   router
+  .get('test', '/test', async (ctx) => { // >>>>
+    const user = await User.findOne();
+    ctx.session.userId = user.id;
+    ctx.session.userName = user.fullName;
+    ctx.redirect(router.url('tasksShow', 2));
+  })
+
   .get('tasksIndex', '/tasks', async (ctx) => {
     const currentUser = ctx.session.userId;
     const { query } = url.parse(ctx.request.url, true);
@@ -50,7 +83,7 @@ export default (router, { User, TaskStatus, Task, Tag }) => {
     const tasks = await Task.findAll(filters);
     const users = [{ id: 0, name: '-- all --' }, ...await getUsers(User, currentUser)];
     const statuses = [{ id: 0, name: '-- all --' }, ...await TaskStatus.findAll()];
-    const title = 'Tasks';
+    const title = await getTitle(query, { User, TaskStatus });
 
     ctx.render('tasks', { f: buildFormObj(query), tasks, users, statuses, title });
   })
@@ -133,7 +166,7 @@ export default (router, { User, TaskStatus, Task, Tag }) => {
         assignedToId: form.assignedTo,
       });
       ctx.flash.set({ text: 'Task has been updated', type: 'alert-success' });
-      ctx.redirect(router.url('tasksUpdate', taskId));
+      ctx.redirect(router.url('tasksShow', taskId));
     } catch (e) {
       ctx.flash.set({ text: 'Something wrong', type: 'alert-danger' });
       const users = await getUsers(User, id);

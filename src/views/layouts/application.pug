@@ -30,6 +30,9 @@ html(lang="en")
             a.nav-link(href=urlFor('tagsIndex'))
               img.link-icon(src='/assets/tags.png')
               | Tags
+          li.nav-item
+            a.nav-link(href=urlFor('test'))
+              | Test #{'>>>'}
         ul.navbar-nav
           if isSignedIn()
             li.nav-item

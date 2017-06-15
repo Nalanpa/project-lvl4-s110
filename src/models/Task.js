@@ -27,7 +27,10 @@ export default connect => connect.define('Task', {
 }, {
   getterMethods: {
     created: function created() {
-      return moment(this.createdAt).format('MMMM Do YYYY, h:mm:ss a');
+      return moment(this.createdAt).format('MMMM Do Y, h:mm:ss a');
+    },
+    createdShort: function createdShort() {
+      return moment(this.createdAt).format('YYYY/MM/DD');
     },
   },
   freezeTableName: true,

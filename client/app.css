@@ -10,12 +10,16 @@ body {
   color: #333;
 }
 
-.new-task-column {
+.about-panel {
+  font-size: 18px;
 }
 
-.new-task-header {
-
+.info-icon {
+  height: 2rem;
+  margin-left: 0.8rem;
+  margin-right: 0.8rem;
 }
+
 
 .link-icon {
   height: 1.5rem;
@@ -27,6 +31,10 @@ body {
 .navbar-brand {
   padding: 0.5rem;
   font-weight: 900;
+  background-color: #ddd;
+}
+
+.form-half {
   background-color: #ddd;
 }
 

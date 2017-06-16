@@ -63,5 +63,11 @@ html(lang="en")
     .placeholder.my-5 .
           
     footer.footer.fixed-bottom.w-100.bg-faded
-      p.text-muted.ml-4.mt-3 © Nalanpa 2017
+      .d-flex.flex-row.justify-content-end.px-5
+        .mr-auto.ml-5.p-2 © Nalanpa 2017
+        a.nav-link.text-muted.mr-5(href=urlFor('about'))
+            img.link-icon(src='/assets/info.png')
+            | About
+      
+        
       

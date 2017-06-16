@@ -1,70 +1,7 @@
 import url from 'url';
-// import _ from 'lodash';
 import buildFormObj from '../lib/formObjectBuilder';
 import requiredAuth from '../lib/requiredAuth';
-
-const getUsers = async (User, id) => {
-  const users = await User.findAll({ order: 'firstName' });
-  return users.map((user) => {
-    if (id && user.id === id) {
-      return { id: user.id, name: '<< me >>' };
-    }
-
-    return { id: user.id, name: user.fullName };
-  });
-};
-
-const getFilters = (query, { User, TaskStatus, Tag }) => {
-  if (!query) return {};
-  const filters = [];
-  const creator = Number(query.creator);
-  const assignedTo = Number(query.assignedTo);
-  const status = Number(query.status);
-  const tag = query.tag;
-
-  if (creator && creator > 0) {
-    filters.push({ model: User, as: 'creator', where: { id: creator } });
-  }
-  if (assignedTo && assignedTo > 0) {
-    filters.push({ model: User, as: 'assignedTo', where: { id: assignedTo } });
-  }
-  if (status && status > 0) {
-    filters.push({ model: TaskStatus, as: 'status', where: { id: status } });
-  }
-  if (tag) {
-    filters.push({ model: Tag, where: { name: { $like: `%${tag}%` } } });
-  }
-  return { include: filters };
-};
-
-const getTitle = async (query, { User, TaskStatus }) => {
-  if (!query) return {};
-
-  let title = 'Tasks';
-  const creatorId = Number(query.creator);
-  const assignedToId = Number(query.assignedTo);
-  const statusId = Number(query.status);
-  const tag = query.tag;
-
-  if (creatorId && creatorId > 0) {
-    const creator = await User.findById(creatorId);
-    title = `${title} created by '${creator.fullName}'`;
-  }
-  if (assignedToId && assignedToId > 0) {
-    const worker = await User.findById(assignedToId);
-    title = `${title} assigned to '${worker.fullName}'`;
-  }
-  if (statusId && statusId > 0) {
-    const status = await TaskStatus.findById(statusId);
-    title = `${title} with status '${status.name}'`;
-  }
-  if (tag) {
-    title = `${title} with tag '${tag}'`;
-  }
-
-  return title;
-};
-
+import { getTitle, getUsers, getFilters, getTagsString } from '../lib/tasksHelper';
 
 export default (router, { User, TaskStatus, Task, Tag }) => {
   router
@@ -100,15 +37,14 @@ export default (router, { User, TaskStatus, Task, Tag }) => {
     const currentUser = ctx.session.userId;
     const form = ctx.request.body.form;
     try {
-      await Task.create({
+      const taskId = await Task.create({
         name: form.name,
         description: form.description,
-        statusId: form.status,
         creatorId: currentUser,
-        assignedToId: form.assignedTo,
+        assignedToId: currentUser,
       });
-      ctx.flash.set('Task has been created');
-      ctx.redirect(router.url('tasksIndex'));
+      ctx.flash.set({ text: 'Task has been created', type: 'alert-success' });
+      ctx.redirect(router.url('tasksShow', taskId));
     } catch (e) {
       const users = await getUsers(User, currentUser);
       const statuses = await TaskStatus.findAll();
@@ -126,13 +62,17 @@ export default (router, { User, TaskStatus, Task, Tag }) => {
     const creator = await User.findById(task.creatorId);
     const status = await TaskStatus.findById(task.statusId);
     const assigned = task.assignedToId ? await User.findById(task.assignedToId) : 'none';
-    const tags = await Tag.findAll({
-      include: [
-        { model: Task, where: { id: taskId } },
-      ],
+    const addedTags = await Tag.findAll({
+      include: [{ model: Task, where: { id: taskId } }],
+      order: ['Tag.name'],
     });
+    const addedTagIds = [0, ...addedTags.map(item => item.id)];
+    const otherTags = await Tag.findAll(
+      { where: { id: { $notIn: addedTagIds } }, order: ['Tag.name'] },
+    );
     const tag = Tag.build();
-    ctx.render('tasks/show', { f: buildFormObj(tag), task, creator, status, assigned, tags });
+    const tagsString = await getTagsString(task);
+    ctx.render('tasks/show', { f: buildFormObj(tag), task, creator, status, assigned, addedTags, tags: otherTags, tagsString });
   })
 
   .get('tasksEdit', '/tasks/:id/edit', requiredAuth, async (ctx) => {
@@ -169,8 +109,6 @@ export default (router, { User, TaskStatus, Task, Tag }) => {
       ctx.redirect(router.url('tasksShow', taskId));
     } catch (e) {
       ctx.flash.set({ text: 'Something wrong', type: 'alert-danger' });
-      console.log('Error >>> ', e);
-      console.log('form >>> ', form);
       const users = await getUsers(User, id);
       const statuses = await TaskStatus.findAll();
       ctx.render('tasks/edit', { f: buildFormObj(form, e), task, users, statuses });
@@ -189,9 +127,9 @@ export default (router, { User, TaskStatus, Task, Tag }) => {
     try {
       const tag = await Tag.create(form);
       await task.addTag(tag);
-      ctx.flash.set('Tag has been created');
+      ctx.flash.set({ text: 'Tag has been added', type: 'alert-success' });
     } catch (e) {
-      ctx.flash.set('Name is no valid');
+      ctx.flash.set({ text: 'Name is no valid', type: 'alert-danger' });
     }
 
     ctx.redirect(router.url('tasksEdit', taskId));
@@ -200,7 +138,7 @@ export default (router, { User, TaskStatus, Task, Tag }) => {
   .delete('tasksDelete', '/tasks/:id', requiredAuth, async (ctx) => {
     const taskId = Number(ctx.params.id);
     await Task.destroy({ where: { id: taskId } });
-    ctx.flash.set('Task has been destroy');
+    ctx.flash.set({ text: 'Tag has been deleted', type: 'alert-success' });
     ctx.redirect(router.url('tasksIndex'));
   })
 

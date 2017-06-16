@@ -1,25 +1,36 @@
-extends /layouts/application.pug
+extends /layouts/two_part_form.pug
 
-block content
-  .row.justify-content-center
-    .col-lg-5.col-12.p-4
-      .container.bg-faded.p-4
-        h3.mb-4 #{task.name}
-        p.mt-2.mb-3
-          strong Status:   
-          img.link-icon(src=`/assets/${status.name}.png`) 
-          em  (#{status.name})
-        p
-          strong Description: 
-        textarea(class="form-control mb-4" readonly rows="4")
-          |#{task.description}
-        +field('Creator', creator.fullName)
-        +field('Created', task.created)
-        if task.assignedToId
-          +field('Assigned to', assigned.fullName)
-        if ( isSignedIn() && (task.creatorId == currentUserId()) )
-          p.mt-2.mb-3.mt-4
-            a(href=urlFor('tasksEdit', task.id)) Edit
-          p.mt-2.mb-3
-            a.text-danger(href=urlFor('tasksDelete', task.id) data-method='delete' data-confirm='Are you sure you want to delete this task?' rel='nofollow') Delete task
-    
+block left
+  
+  h3.mb-4 #{task.name}
+  p.mt-2.mb-3
+    strong Status:   
+    img.link-icon(src=`/assets/${status.name}.png`) 
+    em  (#{status.name})
+  p
+    strong Description: 
+  textarea(class="form-control mb-4" readonly rows="4")
+    |#{task.description}
+  +field('Tags', tagsString)
+  +field('Creator', creator.fullName)
+  +field('Created', task.created)
+  if task.assignedToId
+    +field('Assigned to', assigned.fullName)
+  if ( isSignedIn() && (task.creatorId == currentUserId()) )
+    p.mt-2.mb-3.mt-4
+      a(href=urlFor('tasksEdit', task.id)) Edit
+    p.mt-2.mb-3
+      a.text-danger(href=urlFor('tasksDelete', task.id) data-method='delete' data-confirm='Are you sure you want to delete this task?' rel='nofollow') Delete task
+        
+block right  
+      
+  h3.text-center.mb-4 Tags
+  +formFor(f, { url: urlFor('tasksTagsDelete', task.id), method: 'delete' })
+    +button(f, 'Delete >>>')
+    +multipleSelect(f, 'tags', { options: addedTags })
+  +formFor(f, { url: urlFor('tasksTagsAdd', task.id), method: 'put' })
+    +button(f, '<<< Add')
+    +multipleSelect(f, 'tags', { options: tags })
+  +formFor(f, { url: urlFor('tasksTagsCreate', task.id), method: 'post' })
+    +input(f, 'name', { as: 'name' })
+    +button(f, 'New')

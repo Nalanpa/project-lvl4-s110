@@ -1,0 +1,108 @@
+extends /layouts/application.pug
+
+block content
+  
+  .row.justify-content-center.p-3.mt-5
+    .col-lg-5.col-4.bg-info.about-panel.p-5
+      .row
+        .col-lg-4.col-4
+          img(src='/assets/nalanpa.jpg' class="rounded-circle" width='90%')
+        .col-lg-8.col-8
+          strong Author:
+          h3 Alan Nosenkis
+      .row.mt-5
+        .col-lg-12.col-12
+          p
+            img.info-icon(src='/assets/email.png')
+            a(href='mailto://nalanpa@gmail.com') nalanpa@gmail.com
+          p
+            img.info-icon(src='/assets/skype.png')
+            | Skype: Nalanpa
+          p
+            img.info-icon(src='/assets/linkedin.png')
+            a(href='https://www.linkedin.com/in/alan-nosenkis-0b959087/') LinkedIn
+          p
+            img.info-icon(src='/assets/github-round.png')
+            a(href='https://github.com/Nalanpa') GitHub
+          p
+            img.info-icon(src='/assets/moikrug.png')
+            a(href='https://moikrug.ru/nalanpa') Мой круг
+            
+            
+    .col-lg-5.col-5.bg-faded.about-panel.p-5
+      |This is my attestative project 
+      br
+      |of the course 
+      a(href='//ru.hexlet.io/u/nalanpa') "Backend JS" 
+      br
+      |at 
+      a(href='//hexlet.io')
+        | Hexlet 
+        img.info-icon(src='/assets/hexlet.png')
+      br
+      |June, 2017
+      p.mt-3
+        strong Used technologies and tools:
+      ul
+        li
+          .d-flex.justify-content-start 
+            em Language: 
+            .ml-auto
+              | Node.js 
+              img.info-icon(src='/assets/node.png')
+        li 
+          .d-flex.justify-content-start 
+            em Framework:
+            .ml-auto 
+              | Koa
+              img.info-icon(src='/assets/koa.png')
+        li
+          .d-flex.justify-content-start 
+            em ORM: 
+            .ml-auto
+              | Sequelize
+              img.info-icon(src='/assets/sequelize.png')
+        li
+          .d-flex.justify-content-start 
+            em Layout:
+            .ml-auto
+              | Bootstrap
+              img.info-icon(src='/assets/bootstrap.png')
+        li
+          .d-flex.justify-content-start 
+            em Rendering:
+            .ml-auto
+              | Pug
+              img.info-icon(src='/assets/pug.png')
+        li
+          .d-flex.justify-content-start 
+            em DVCS: 
+            .ml-auto
+              | GitHub
+              img.info-icon(src='/assets/github.png')
+        li 
+          .d-flex.justify-content-start 
+            em Staging:
+            .ml-auto
+              | Heroku
+              img.info-icon(src='/assets/heroku.png')
+        li 
+          .d-flex.justify-content-start 
+            em Task manager: 
+            .ml-auto
+              | Gulp
+              img.info-icon(src='/assets/gulp.png')
+        li 
+          .d-flex.justify-content-start 
+            em Package manager: 
+            .ml-auto
+              | WebPack
+              img.info-icon(src='/assets/webpack.png')
+      
+      h4 
+        a(href='https://github.com/Nalanpa/project-lvl4-s110') 
+          img.info-icon(src='/assets/github-round.png')
+          | Source code
+        
+      
+      

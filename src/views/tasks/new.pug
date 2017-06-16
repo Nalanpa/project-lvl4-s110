@@ -1,6 +1,11 @@
 extends /layouts/application.pug
 
 block content
-  h2.text-center.mt-3 Create new task
-  p Need develop
-  
+  .row.justify-content-center
+    .col-lg-4.col-12.p-5
+      +formFor(f, { url: urlFor('tasksCreate'), method: 'post' })
+        h2.my-4 New task
+        +input(f, 'name', { label : 'Name:'})
+        +textarea(f, 'description', { label : 'Description:'})
+        .button-container.my-5
+          +button(f, 'Submit')

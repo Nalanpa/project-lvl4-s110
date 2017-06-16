@@ -4,7 +4,7 @@ import buildFormObj from '../lib/formObjectBuilder';
 export default (router, { User }) => {
   router
     .get('usersIndex', '/users', async (ctx) => {
-      const users = await User.findAll();
+      const users = await User.findAll({ order: ['firstName'] });
       ctx.render('users/index', { users });
     })
 

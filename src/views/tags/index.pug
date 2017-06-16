@@ -6,17 +6,22 @@ block content
   .row.justify-content-center
     .col-lg-6.col-12.p-4
  
-        h2.mt-5 Tags
-
         table.table.table-striped.table-hover.table-sm.mt-4
           thead.thead-inverse
             tr
-              th Tag
+              th Tags
               th 
           tbody
-            each tag in tags
+            each tag in assignedTags  
               tr
                 td= tag.name
                 td
-                  a(href=`${urlFor('tagsTasks', { id: tag.id })}`) tasks
+                  a(href=`${urlFor('tagsTasks', { id: tag.id })}`) Tasks
+            each tag in otherTags  
+              tr
+                td= tag.name
+                td
+                  a(href=`${urlFor('tagsTasks', { id: tag.id })}`) delete
+                  a.text-danger(data-confirm="Are you sure you want to delete this tag?" href=urlFor('tagsDelete', tad.id) data-method='delete' rel='nofollow') Delete  
+
         

@@ -56,13 +56,17 @@ export default (router, { User, TaskStatus, Task, Tag }) => {
     const status = await TaskStatus.findById(task.statusId);
     const assigned = task.assignedToId ? await User.findById(task.assignedToId) : 'none';
     const addedTags = await Tag.findAll({
+      attributes: [['name', 'name'], 'id'],
+      order: ['name'],
       include: [{ model: Task, where: { id: taskId } }],
-      order: ['Tag.name'],
     });
+
     const addedTagIds = [0, ...addedTags.map(item => item.id)];
-    const otherTags = await Tag.findAll(
-      { where: { id: { $notIn: addedTagIds } }, order: ['Tag.name'] },
-    );
+    const otherTags = await Tag.findAll({
+      attributes: [['name', 'name'], 'id'],
+      order: ['name'],
+      where: { id: { $notIn: addedTagIds } },
+    });
     const tag = Tag.build();
     const tagsString = await getTagsString(task);
     ctx.render('tasks/show', { f: buildFormObj(tag), task, creator, status, assigned, addedTags, tags: otherTags, tagsString });

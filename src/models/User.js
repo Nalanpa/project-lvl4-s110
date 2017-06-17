@@ -18,14 +18,14 @@ export default connect => connect.define('User', {
   },
   firstName: {
     type: Sequelize.STRING,
-    field: 'first_name',
+    // field: 'first_name',
     validate: {
       notEmpty: { msg: 'Cannot be empty' },
     },
   },
   lastName: {
     type: Sequelize.STRING,
-    field: 'last_name',
+    // field: 'last_name',
   },
   password: {
     type: Sequelize.VIRTUAL,

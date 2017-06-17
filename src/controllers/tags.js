@@ -3,14 +3,17 @@ export default (router, { Tag, Task }) => {
   router
     .get('tagsIndex', '/tags', async (ctx) => {
       const addedTags = await Tag.findAll({
-        order: 'Tag.name',
+        attributes: [['name', 'name'], 'id'],
+        order: ['name'],
         include: [{ model: Task, where: { id: { $gt: 0 } } }],
       });
 
       const addedTagIds = [0, ...addedTags.map(item => item.id)];
-      const freeTags = await Tag.findAll(
-        { where: { id: { $notIn: addedTagIds } }, order: ['Tag.name'] },
-      );
+      const freeTags = await Tag.findAll({
+        attributes: [['name', 'name'], 'id'],
+        order: ['name'],
+        where: { id: { $notIn: addedTagIds } },
+      });
 
       ctx.render('tags', { addedTags, freeTags });
     })

@@ -21,7 +21,10 @@ block left
       a(href=urlFor('tasksEdit', task.id)) Edit
     p.mt-2.mb-3
       a.text-danger(href=urlFor('tasksDelete', task.id) data-method='delete' data-confirm='Are you sure you want to delete this task?' rel='nofollow') Delete task
-        
+  else
+    p.mt-2.mb-3.mt-4.text-muted Edit
+    p.mt-2.mb-3.text-muted Delete task
+      
 block right  
       
   h3.text-center.mb-4 Tags

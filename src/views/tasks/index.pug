@@ -52,7 +52,7 @@ block content
             a.no-color(href=urlFor('tasksShow', task.id))= name
           td= description
           td
-            img.link-icon(src=`/assets/${_.find(statuses, { id: task.statusId }).name}.png`) 
+            img.link-icon(src=`/assets/${_.find(statuses, { id: task.statusId }).name.toLowerCase()}.png`) 
           td= task.assignedToId ? _.find(users, { id: task.assignedToId }).name : ''
           td= task.creatorId ? _.find(users, { id: task.creatorId }).name : ''
           td= task.createdShort

@@ -5,7 +5,7 @@ block left
   h3.mb-4 #{task.name}
   p.mt-2.mb-3
     strong Status:   
-    img.link-icon(src=`/assets/${status.name}.png`) 
+    img.link-icon(src=`/assets/${status.name.toLowerCase()}.png`) 
     em  (#{status.name})
   p
     strong Description: 

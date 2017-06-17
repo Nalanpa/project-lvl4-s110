@@ -1,6 +1,6 @@
 
 const getTagsString = async (task) => {
-  const tags = await task.getTags({ order: ['name'] });
+  const tags = await task.getTags({ attributes: [['name', 'name']], order: ['name'] });
   if (!tags) return '';
 
   return tags.reduce((result, tag) => `${result}, ${tag.name}`, '').substr(2);
@@ -8,7 +8,7 @@ const getTagsString = async (task) => {
 
 
 const getUsers = async (User, id) => {
-  const users = await User.findAll({ order: 'firstName' });
+  const users = await User.findAll({ attributes: [['firstName', 'firstName'], 'id'], order: 'firstName' });
   return users.map((user) => {
     if (id && user.id === id) {
       return { id: user.id, name: '<< me >>' };

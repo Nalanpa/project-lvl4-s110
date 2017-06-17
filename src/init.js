@@ -29,7 +29,7 @@ export default async () => {
     { firstName: 'Creator of everything', lastName: '', email: 'god@univer.sum', password: '111' },
   ]);
 
-  const dateConq = new Date(-45, 6, 1);
+  const dateConq = new Date(1, 6, 1);
   const dateOS = new Date(1980, 5, 10);
   const datePayPal = new Date(1998, 3, 7);
   const dateTesla = new Date(2003, 6, 8);

@@ -44,7 +44,7 @@ describe('Tags', () => {
     expect(tag.name).toBe(name);
 
     const resDel = await request.agent(server)
-      .delete(`/tags/${name}`);
+      .delete(`/tags/${tag.id}`);
     expect(resDel).toHaveHTTPStatus(302);
   });
 

@@ -1,13 +1,12 @@
+import _ from 'lodash';
 import buildFormObj from '../lib/formObjectBuilder';
 
 
 export default (router, { User }) => {
   router
     .get('usersIndex', '/users', async (ctx) => {
-      const users = await User.findAll({
-        attributes: [['firstName', 'firstName'], 'id', 'email', 'createdAt'],
-        order: ['firstName'],
-      });
+      const unsortedUsers = await User.findAll();
+      const users = _.sortBy(unsortedUsers, ['firstName']);
       ctx.render('users/index', { users });
     })
 

@@ -1,6 +1,8 @@
+import _ from 'lodash';
 
 const getTagsString = async (task) => {
-  const tags = await task.getTags({ attributes: [['name', 'name']], order: ['name'] });
+  const unsortedTags = await task.getTags();
+  const tags = _.sortBy(unsortedTags, ['name']);
   if (!tags) return '';
 
   return tags.reduce((result, tag) => `${result}, ${tag.name}`, '').substr(2);
@@ -8,12 +10,12 @@ const getTagsString = async (task) => {
 
 
 const getUsers = async (User, id) => {
-  const users = await User.findAll({ attributes: [['firstName', 'firstName'], 'id'], order: 'firstName' });
+  const unsortedUsers = await User.findAll();
+  const users = _.sortBy(unsortedUsers, ['firstName']);
   return users.map((user) => {
     if (id && user.id === id) {
       return { id: user.id, name: '<< me >>' };
     }
-
     return { id: user.id, name: user.fullName };
   });
 };

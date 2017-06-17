@@ -1,19 +1,18 @@
+import _ from 'lodash';
 
 export default (router, { Tag, Task }) => {
   router
     .get('tagsIndex', '/tags', async (ctx) => {
-      const addedTags = await Tag.findAll({
-        attributes: [['name', 'name'], 'id'],
-        order: ['name'],
+      const unsortedAddedTags = await Tag.findAll({
         include: [{ model: Task, where: { id: { $gt: 0 } } }],
       });
+      const addedTags = _.sortBy(unsortedAddedTags, ['name']);
 
       const addedTagIds = [0, ...addedTags.map(item => item.id)];
-      const freeTags = await Tag.findAll({
-        attributes: [['name', 'name'], 'id'],
-        order: ['name'],
+      const unsortedFreeTags = await Tag.findAll({
         where: { id: { $notIn: addedTagIds } },
       });
+      const freeTags = _.sortBy(unsortedFreeTags, ['name']);
 
       ctx.render('tags', { addedTags, freeTags });
     })

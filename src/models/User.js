@@ -18,14 +18,12 @@ export default connect => connect.define('User', {
   },
   firstName: {
     type: Sequelize.STRING,
-    // field: 'first_name',
     validate: {
       notEmpty: { msg: 'Cannot be empty' },
     },
   },
   lastName: {
     type: Sequelize.STRING,
-    // field: 'last_name',
   },
   password: {
     type: Sequelize.VIRTUAL,
@@ -41,7 +39,7 @@ export default connect => connect.define('User', {
 }, {
   getterMethods: {
     fullName: function fullName() {
-      return `${this.firstName} ${this.lastName}`;
+      return `${this.firstName} ${this.lastName || ''}`;
     },
   },
   freezeTableName: true, // Model tableName will be the same as the model name

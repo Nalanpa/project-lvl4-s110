@@ -1,4 +1,5 @@
 import url from 'url';
+import _ from 'lodash';
 import buildFormObj from '../lib/formObjectBuilder';
 import requiredAuth from '../lib/requiredAuth';
 import { getTitle, getUsers, getFilters, getTagsString } from '../lib/tasksHelper';
@@ -9,8 +10,8 @@ export default (router, { User, TaskStatus, Task, Tag }) => {
     const currentUser = ctx.session.userId;
     const query = ctx.request.body.form;
     const filters = getFilters(query, { User, TaskStatus, Tag });
-    filters.order = ['Task.createdAt'];
-    const tasks = await Task.findAll(filters);
+    const unsortedTasks = await Task.findAll(filters);
+    const tasks = _.sortBy(unsortedTasks, ['createdBy']);
     const users = [{ id: 0, name: '-- all --' }, ...await getUsers(User, currentUser)];
     const statuses = [{ id: 0, name: '-- all --' }, ...await TaskStatus.findAll()];
     const title = await getTitle(query, { User, TaskStatus });
@@ -55,18 +56,17 @@ export default (router, { User, TaskStatus, Task, Tag }) => {
     const creator = await User.findById(task.creatorId);
     const status = await TaskStatus.findById(task.statusId);
     const assigned = task.assignedToId ? await User.findById(task.assignedToId) : 'none';
-    const addedTags = await Tag.findAll({
-      attributes: [['name', 'name'], 'id'],
-      order: ['name'],
+    const unsortedAddedTags = await Tag.findAll({
       include: [{ model: Task, where: { id: taskId } }],
     });
+    const addedTags = _.sortBy(unsortedAddedTags, ['name']);
 
     const addedTagIds = [0, ...addedTags.map(item => item.id)];
-    const otherTags = await Tag.findAll({
-      attributes: [['name', 'name'], 'id'],
-      order: ['name'],
+    const unsortedOtherTags = await Tag.findAll({
       where: { id: { $notIn: addedTagIds } },
     });
+    const otherTags = _.sortBy(unsortedOtherTags, ['name']);
+
     const tag = Tag.build();
     const tagsString = await getTagsString(task);
     ctx.render('tasks/show', { f: buildFormObj(tag), task, creator, status, assigned, addedTags, tags: otherTags, tagsString });

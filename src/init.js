@@ -13,9 +13,9 @@ export default async () => {
 
   await models.TaskStatus.bulkCreate([
     { id: 1, name: 'New' },
-    { name: 'Processing' },
-    { name: 'Testing' },
-    { name: 'Done' },
+    { id: 2, name: 'Processing' },
+    { id: 3, name: 'Testing' },
+    { id: 4, name: 'Done' },
   ]);
 
   // Test data following

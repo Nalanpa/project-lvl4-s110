@@ -1,30 +1,18 @@
-// import buildFormObj from '../lib/formObjectBuilder';
-import sequelize from 'sequelize';
 
 export default (router, { Tag, Task }) => {
   router
     .get('tagsIndex', '/tags', async (ctx) => {
-      const assignedTags = await Tag.findAll({
-        attributes: [
-          ['Tag.id', 'id'],
-          ['Tag.name', 'name'],
-          [sequelize.fn('COUNT', sequelize.col('Task.id')), 'tasksCount'],
-        ],
-        group: ['Tag.id', 'Tag.name'],
-        include: [{ model: Task, attributes: [] }],
-        order: ['Tag.name'],
+      const addedTags = await Tag.findAll({
+        order: 'Tag.name',
+        include: [{ model: Task, where: { id: { $gt: 0 } } }],
       });
 
-      assignedTags.reduce((acc, item) => {
-        console.log('>>> ', item.id, item.name, item.tasksCount);
-        return 1;
-      }, '');
-      // console.log('>>> tags >>>>> ', assignedTags);
-      const assignedTagIds = [0, ...assignedTags.map(item => item.id)];
-      const otherTags = await Tag.findAll(
-        { where: { id: { $notIn: assignedTagIds } }, order: ['Tag.name'] },
+      const addedTagIds = [0, ...addedTags.map(item => item.id)];
+      const freeTags = await Tag.findAll(
+        { where: { id: { $notIn: addedTagIds } }, order: ['Tag.name'] },
       );
-      ctx.render('tags', { assignedTags, otherTags });
+
+      ctx.render('tags', { addedTags, freeTags });
     })
 
     .post('tagsCreate', '/tags', async (ctx) => {
@@ -44,7 +32,7 @@ export default (router, { Tag, Task }) => {
       try {
         await Tag.destroy({ where: { id } });
         ctx.flash.set({ text: 'Tag has been deleted', type: 'alert-success' });
-        ctx.redirect(router.url('root'));
+        ctx.redirect(router.url('tagsIndex'));
       } catch (e) {
         ctx.flash.set({ text: 'Error deleting tag', type: 'alert-danger' });
         console.error('ERROR: ', e);

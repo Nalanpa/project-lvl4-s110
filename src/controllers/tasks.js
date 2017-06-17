@@ -5,13 +5,6 @@ import { getTitle, getUsers, getFilters, getTagsString } from '../lib/tasksHelpe
 
 export default (router, { User, TaskStatus, Task, Tag }) => {
   router
-  .get('test', '/test', async (ctx) => { // >>>>
-    const user = await User.findOne();
-    ctx.session.userId = user.id;
-    ctx.session.userName = user.fullName;
-    ctx.redirect(router.url('tasksShow', 2));
-  })
-
   .get('tasksIndex', '/tasks', async (ctx) => {
     const currentUser = ctx.session.userId;
     const query = ctx.request.body.form;

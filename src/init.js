@@ -5,23 +5,23 @@ export default async () => {
   const models = getModels(connect);
   await Promise.all(Object.values(models).map(model => model.sync({ force: true })));
 
-  await models.TaskStatus.bulkCreate([
-    { id: 1, name: 'New' },
-    { name: 'Processing' },
-    { name: 'Testing' },
-    { name: 'Done' },
-  ]);
-
-  // Test data following
-
-  await models.User.bulkCreate([
-    { firstName: 'Julius', lastName: 'Caesar', email: 'julius@ancient.rome', password: '111' },
-    { firstName: 'Vladimir', lastName: 'Putin', email: 'vvp@kremlin.ru', password: '111' },
-    { firstName: 'Epifan', lastName: 'Lykov', email: 'epifan@syberia.ru', password: '111' },
-    { firstName: 'Bill', lastName: 'Gates', email: 'billy@microsoft.com', password: '111' },
-    { firstName: 'Elon', lastName: 'Musk', email: 'ElonMusk@station1.mars', password: '111' },
-    { firstName: 'Creator of everything', lastName: '', email: 'god@univer.sum', password: '111' },
-  ]);
+  // await models.TaskStatus.bulkCreate([
+  //   { id: 1, name: 'New' },
+  //   { name: 'Processing' },
+  //   { name: 'Testing' },
+  //   { name: 'Done' },
+  // ]);
+  //
+  // // Test data following
+  //
+  // await models.User.bulkCreate([
+  //   { firstName: 'Julius', lastName: 'Caesar', email: 'julius@ancient.rome', password: '111' },
+  //   { firstName: 'Vladimir', lastName: 'Putin', email: 'vvp@kremlin.ru', password: '111' },
+  //   { firstName: 'Epifan', lastName: 'Lykov', email: 'epifan@syberia.ru', password: '111' },
+  //   { firstName: 'Bill', lastName: 'Gates', email: 'billy@microsoft.com', password: '111' },
+  //   { firstName: 'Elon', lastName: 'Musk', email: 'ElonMusk@station1.mars', password: '111' },
+  //   { firstName: 'Creator of everything', lastName: '', email: 'god@univer.sum', password: '111' },
+  // ]);
 
   // const dateConq = new Date(-45, 6, 1);
   // const dateOS = new Date(1980, 5, 10);

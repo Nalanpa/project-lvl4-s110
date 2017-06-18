@@ -37,11 +37,11 @@ export default async () => {
 
 
   await models.Task.bulkCreate([
-    { name: 'Make good OS', description: 'OS for everybody', statusId: 3, creatorId: 4, assignedToId: 4, createdAt: dateOS },
-    { name: 'Conquer Europe', description: 'Build a greatest empire in the world', statusId: 4, creatorId: 6, assignedToId: 1, createdAt: dateConq },
-    { name: 'Make PayPal', description: 'Make best payment system', statusId: 4, creatorId: 5, assignedToId: 5, createdAt: datePayPal },
+    { name: 'Make good OS', description: 'Windows into crowd brains', statusId: 3, creatorId: 4, assignedToId: 4, createdAt: dateOS },
+    { name: 'Conquer Europe', description: 'Build a greatest empire in the world forever', statusId: 4, creatorId: 6, assignedToId: 1, createdAt: dateConq },
+    { name: 'Make PayPal', description: 'Make the best payment system', statusId: 4, creatorId: 5, assignedToId: 5, createdAt: datePayPal },
     { name: 'Make Tesla', description: 'Electro car', statusId: 2, creatorId: 5, assignedToId: 5, createdAt: dateTesla },
-    { name: 'Human colonization', description: 'Colonization of Mars', statusId: 1, creatorId: 6, assignedToId: 5, createdAt: dateMars },
+    { name: 'Human colonization', description: 'Colonization of the Mars', statusId: 1, creatorId: 6, assignedToId: 5, createdAt: dateMars },
     { name: 'Save Russia', description: '', statusId: 3, creatorId: 6, assignedToId: 2, createdAt: dateSave },
   ]);
 

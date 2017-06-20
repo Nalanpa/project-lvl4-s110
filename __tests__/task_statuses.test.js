@@ -1,6 +1,9 @@
 import request from 'supertest';
 import matchers from 'jest-supertest-matchers';
 import faker from 'faker';
+import Router from 'koa-router';
+import container from '../src/container';
+import addRoutes from '../src/controllers';
 
 import app from '../src';
 import connect from '../src/db';
@@ -10,6 +13,8 @@ describe('Task Statuses', () => {
   const TaskStatus = getTaskStatus(connect);
 
   let server;
+  const router = new Router();
+  addRoutes(router, container);
 
   beforeAll(async () => {
     jasmine.addMatchers(matchers);
@@ -21,7 +26,7 @@ describe('Task Statuses', () => {
 
   it('GET 200', async () => {
     const res = await request.agent(server)
-      .get('/taskStatuses');
+      .get(router.url('taskStatuses'));
     expect(res).toHaveHTTPStatus(200);
   });
 
@@ -31,7 +36,7 @@ describe('Task Statuses', () => {
     const countBefore = await TaskStatus.count();
 
     const res = await request.agent(server)
-      .post('/taskStatuses')
+      .post(router.url('taskStatusesCreate'))
       .send({ form });
     expect(res).toHaveHTTPStatus(302);
 
@@ -44,7 +49,7 @@ describe('Task Statuses', () => {
     expect(taskStatus.name).toBe(name);
 
     const resDel = await request.agent(server)
-      .delete(`/taskStatuses/${name}`);
+      .delete(router.url('taskStatusesDelete', taskStatus));
     expect(resDel).toHaveHTTPStatus(302);
   });
 

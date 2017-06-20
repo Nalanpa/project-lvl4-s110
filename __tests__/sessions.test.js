@@ -1,6 +1,9 @@
 import request from 'supertest';
 import matchers from 'jest-supertest-matchers';
 import faker from 'faker';
+import Router from 'koa-router';
+import container from '../src/container';
+import addRoutes from '../src/controllers';
 
 import app from '../src';
 import connect from '../src/db';
@@ -23,6 +26,8 @@ describe('Sessions', () => {
   };
 
   let server;
+  const router = new Router();
+  addRoutes(router, container);
 
   let email;
   let firstName;
@@ -48,7 +53,7 @@ describe('Sessions', () => {
     const countBefore = await User.count();
 
     const res = await request.agent(server)
-      .post('/users')
+      .post(router.url('usersIndex'))
       .send({ form });
     expect(res).toHaveHTTPStatus(302);
 
@@ -60,7 +65,7 @@ describe('Sessions', () => {
   it('Sign In', async () => {
     const form = { email, password };
     const res = await request.agent(server)
-      .post('/session')
+      .post(router.url('sessionCreate'))
       .send({ form });
     expect(res).toHaveHTTPStatus(302);
   });
@@ -69,14 +74,14 @@ describe('Sessions', () => {
     const wrongPassword = faker.internet.password();
     const form = { email, password: wrongPassword };
     const res = await request.agent(server)
-      .post('/session')
+      .post(router.url('sessionCreate'))
       .send({ form });
     expect(res).toHaveHTTPStatus(302);
   });
 
   it('Sign Out', async () => {
     const res = await request.agent(server)
-      .delete('/session');
+      .delete(router.url('sessionDelete'));
     expect(res).toHaveHTTPStatus(302);
   });
 

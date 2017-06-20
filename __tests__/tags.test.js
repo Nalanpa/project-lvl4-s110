@@ -1,6 +1,9 @@
 import request from 'supertest';
 import matchers from 'jest-supertest-matchers';
 import faker from 'faker';
+import Router from 'koa-router';
+import container from '../src/container';
+import addRoutes from '../src/controllers';
 
 import app from '../src';
 import connect from '../src/db';
@@ -10,6 +13,8 @@ describe('Tags', () => {
   const Tag = getTag(connect);
 
   let server;
+  const router = new Router();
+  addRoutes(router, container);
 
   beforeAll(async () => {
     jasmine.addMatchers(matchers);
@@ -21,7 +26,7 @@ describe('Tags', () => {
 
   it('GET 200', async () => {
     const res = await request.agent(server)
-      .get('/tags');
+      .get(router.url('tagsIndex'));
     expect(res).toHaveHTTPStatus(200);
   });
 
@@ -31,7 +36,7 @@ describe('Tags', () => {
     const countBefore = await Tag.count();
 
     const res = await request.agent(server)
-      .post('/tags')
+      .post(router.url('tagsCreate'))
       .send({ form });
     expect(res).toHaveHTTPStatus(302);
 
@@ -44,7 +49,7 @@ describe('Tags', () => {
     expect(tag.name).toBe(name);
 
     const resDel = await request.agent(server)
-      .delete(`/tags/${tag.id}`);
+      .delete(router.url('tagsDelete', tag.id));
     expect(resDel).toHaveHTTPStatus(302);
   });
 

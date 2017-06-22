@@ -1,17 +1,15 @@
-extends /layouts/application.pug
+extends /layouts/medium_form.pug
 
-block content
-  .row.justify-content-center
-    .col-lg-6.col-12.p-4
-      .container.bg-faded.px-4.py-3
-        +formFor(f, { url: urlFor('tasksUpdate', task.id), method: 'patch' })
-          h2.mb-4.mt-1 Edit task
-          +input(f, 'name', { label : 'Name:'})
-          +textarea(f, 'description', { label: 'Description:' })
-          p.mt-2.mb-3
-            +select(f, 'status', { items: statuses, selectId: task.statusId, label: 'Status:' })
-          p.mt-2.mb-3
-            +select(f, 'assignedTo', { items: users, selectId: task.assignedToId, label: 'Assigned to:' })
-          .button-container.my-4
-            +button(f, 'Edit')
+block form
+  +formFor(f, { url: urlFor('tasksUpdate', task.id), method: 'patch' })
+    h2.mb-4.mt-1 Edit task
+    +input(f, 'name', { label: 'Name:'})
+    +textarea(f, 'description', { label: 'Description:' })
+    +input(f, 'tags', { label: 'Tags:', value: tags })
+    p.mt-2.mb-3
+      +select(f, 'status', { items: statuses, selectId: task.statusId, label: 'Status:' })
+    p.mt-2.mb-3
+      +select(f, 'assignedTo', { items: users, selectId: task.assignedToId, label: 'Assigned to:' })
+    .button-container.my-4
+      +button(f, 'Edit')
         

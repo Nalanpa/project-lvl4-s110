@@ -69,6 +69,8 @@ export default () => {
     helperPath: [
       { _ },
       { urlFor: (...args) => router.url(...args) },
+      { cutString: (string, length) => (string.length > length ? `${string.substr(0, length)}...` : string) },
+      { iconSrc: name => `/assets/${name.toLowerCase()}.png` },
     ],
   });
   pug.use(app);

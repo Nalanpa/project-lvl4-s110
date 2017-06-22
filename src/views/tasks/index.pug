@@ -24,11 +24,11 @@ block content
           - const myTasksUrl = urlFor('usersTasks', { id: currentUserId() });
           h5.mt-2.mb-3
             a(href=myTasksUrl) 
-              img.link-icon(src='/assets/tasks.png')
+              img.link-icon(src=iconSrc('tasks'))
               | My tasks
           h5.mt-2.mb-3
             a(href=urlFor('tasksNew')) 
-              img.link-icon(src='/assets/new_task.png')
+              img.link-icon(src=iconSrc('new_task'))
               | Create new Task
     
         
@@ -43,16 +43,12 @@ block content
         th Created At
     tbody
       each task in tasks
-        - const maxDescriptionLength = 50
-        - const maxNameLength = 30
-        - const description = task.description.length > maxDescriptionLength ? `${task.description.substr(0, maxDescriptionLength)}...` : task.description
-        - const name = task.name.length > maxNameLength ? `${task.name.substr(0, maxNameLength)}...` : task.name
         tr
           td.pl-4
-            a.no-color(href=urlFor('tasksShow', task.id))= name
-          td= description
+            a.no-color(href=urlFor('tasksShow', task.id))= cutString(task.name, 30)
+          td= cutString(task.description, 50)
           td
-            img.link-icon(src=`/assets/${_.find(statuses, { id: task.statusId }).name.toLowerCase()}.png`) 
+            img.link-icon(src=iconSrc(_.find(statuses, { id: task.statusId }).name)) 
           td= task.assignedToId ? _.find(users, { id: task.assignedToId }).name : ''
           td= task.creatorId ? _.find(users, { id: task.creatorId }).name : ''
           td= task.createdShort

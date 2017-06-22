@@ -1,6 +1,6 @@
 {
   "name": "nalanpa-forth-project",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Task Manager -- Forth learning project on Hexlet",
   "main": "dist/index.js",
   "bin": {

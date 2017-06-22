@@ -1,11 +1,11 @@
-extends /layouts/two_part_form.pug
+extends /layouts/medium_form.pug
 
-block left
+block form
   
   h3.mb-4 #{task.name}
   p.mt-2.mb-3
     strong Status:   
-    img.link-icon(src=`/assets/${status.name.toLowerCase()}.png`) 
+    img.link-icon(src=iconSrc(status.name)) 
     em  (#{status.name})
   p
     strong Description: 
@@ -21,19 +21,17 @@ block left
       a(href=urlFor('tasksEdit', task.id)) Edit
     p.mt-2.mb-3
       a.text-danger(href=urlFor('tasksDelete', task.id) data-method='delete' data-confirm='Are you sure you want to delete this task?' rel='nofollow') Delete task
-  else
-    p.mt-2.mb-3.mt-4.text-muted Edit
-    p.mt-2.mb-3.text-muted Delete task
+  
       
-block right  
-      
-  h3.text-center.mb-4 Tags
-  +formFor(f, { url: urlFor('tasksTagsDelete', task.id), method: 'delete' })
-    +button(f, 'Delete >>>')
-    +multipleSelect(f, 'tags', { options: addedTags })
-  +formFor(f, { url: urlFor('tasksTagsAdd', task.id), method: 'put' })
-    +button(f, '<<< Add')
-    +multipleSelect(f, 'tags', { options: tags })
-  +formFor(f, { url: urlFor('tasksTagsCreate', task.id), method: 'post' })
-    +input(f, 'name', { as: 'name' })
-    +button(f, 'New')
+//- block right  
+//-       
+//-   h3.text-center.mb-4 Tags
+//-   +formFor(f, { url: urlFor('tasksTagsDelete', task.id), method: 'delete' })
+//-     +button(f, 'Delete >>>')
+//-     +multipleSelect(f, 'tags', { options: addedTags })
+//-   +formFor(f, { url: urlFor('tasksTagsAdd', task.id), method: 'put' })
+//-     +button(f, '<<< Add')
+//-     +multipleSelect(f, 'tags', { options: tags })
+//-   +formFor(f, { url: urlFor('tasksTagsCreate', task.id), method: 'post' })
+//-     +input(f, 'name', { as: 'name' })
+//-     +button(f, 'New')

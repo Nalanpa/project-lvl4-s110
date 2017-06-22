@@ -1,5 +1,6 @@
 import path from 'path';
 import webpack from 'webpack';
+import autoprefixer from 'autoprefixer';
 
 export default () => ({
   entry: {
@@ -20,7 +21,24 @@ export default () => ({
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader'],
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => [autoprefixer],
+            },
+          },
+        ],
+      },
+      {
+        test: /\.pug$/,
+        loaders: [
+          'html-loader',
+          'pug-html-loader?{"pretty":true,"exports":false}',
+        ],
+        include: ['./client/icons'],
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,

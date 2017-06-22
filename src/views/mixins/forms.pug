@@ -16,7 +16,8 @@ mixin field(name, value)
     em= value
     
 mixin input(f, property, options = { as: 'text' })
-  - const value = f.object[property] === undefined ? '' : f.object[property]
+  - const value = f.object[property] || options['value'] || ''
+  //-  === undefined ? '' : f.object[property]
   .form-group(class=(f.errors[property] && 'has-danger'))
     if options['label']
       label= options['label'] 

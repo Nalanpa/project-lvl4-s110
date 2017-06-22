@@ -10,16 +10,45 @@ body {
   color: #333;
 }
 
-.navbar-brand {
+images {
+  background:
+  url('./icons/user.gif'),
+  url('./icons/login.gif'),
+  url('./icons/logout.gif'),
+  url('./icons/signup.gif'),
+  url('./icons/users.gif'),
+  url('./icons/splash_screen.gif'),
+  url('./icons/done.png'),
+  url('./icons/new.png'),
+  url('./icons/processing.png'),
+  url('./icons/testing.png'),
+  url('./icons/tags.png'),
+  url('./icons/tasks.png'),
+  url('./icons/new_task.png'),
+  url('./icons/info.png'),
+  url('./icons/hexlet.png'),
+  url('./icons/koa.png'),
+  url('./icons/node.png'),
+  url('./icons/github.png'),
+  url('./icons/heroku.png'),
+  url('./icons/sequelize.png'),
+  url('./icons/bootstrap.png'),
+  url('./icons/pug.png'),
+  url('./icons/gulp.png'),
+  url('./icons/webpack.png'),
+  url('./icons/nalanpa.jpg'),
+  url('./icons/email.png'),
+  url('./icons/skype.png'),
+  url('./icons/github-round.png'),
+  url('./icons/linkedin.png'),
+  url('./icons/moikrug.png');
+}
+
+.logo {
   padding: 0.5rem;
   font-weight: 900;
   background-color: #ddd;
 }
-
-/*.nav-item {
-  margin-left: 1rem;
-  margin-right: 1rem;
-}*/
 
 .about-panel-left {
   font-size: 18px;
@@ -35,7 +64,6 @@ body {
   margin-left: 0.8rem;
   margin-right: 0.8rem;
 }
-
 
 .link-icon {
   height: 1.5rem;

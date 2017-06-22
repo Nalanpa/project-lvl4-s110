@@ -1,11 +1,11 @@
-extends /layouts/application.pug
+extends /layouts/medium_form.pug
 
-block content
-  .row.justify-content-center
-    .col-lg-4.col-12.p-5
-      +formFor(f, { url: urlFor('tasksCreate'), method: 'post' })
-        h2.my-4 New task
-        +input(f, 'name', { label : 'Name:'})
-        +textarea(f, 'description', { label : 'Description:'})
-        .button-container.my-5
-          +button(f, 'Submit')
+block form
+  
+  +formFor(f, { url: urlFor('tasksCreate'), method: 'post' })
+    h2.my-4 New task
+    +input(f, 'name', { label : 'Name:'})
+    +textarea(f, 'description', { label : 'Description:'})
+    +input(f, 'tags', { label : 'Tags:', value: tags })
+    .button-container.my-5
+      +button(f, 'Submit')

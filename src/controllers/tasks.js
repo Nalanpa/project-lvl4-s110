@@ -30,15 +30,19 @@ export default (router, { User, TaskStatus, Task, Tag }) => {
   .post('tasksCreate', '/tasks', requiredAuth, async (ctx) => {
     const currentUser = ctx.session.userId;
     const form = ctx.request.body.form;
+    const tags = form.tags.split(/[,;]/).map(tag => tag.trim()).filter(tag => tag);
     try {
-      const taskId = await Task.create({
+      const task = await Task.create({
         name: form.name,
         description: form.description,
         creatorId: currentUser,
         assignedToId: currentUser,
       });
+      await tags.map(async tag => Tag.findOne({ where: { name: tag } })
+          .then(async result => (result ? task.addTag(result) :
+            task.createTag({ name: tag }))));
       ctx.flash.set({ text: 'Task has been created', type: 'alert-success' });
-      ctx.redirect(router.url('tasksShow', taskId));
+      ctx.redirect(router.url('tasksShow', task));
     } catch (e) {
       const users = await getUsers(User, currentUser);
       const statuses = await TaskStatus.findAll();
@@ -56,20 +60,9 @@ export default (router, { User, TaskStatus, Task, Tag }) => {
     const creator = await User.findById(task.creatorId);
     const status = await TaskStatus.findById(task.statusId);
     const assigned = task.assignedToId ? await User.findById(task.assignedToId) : 'none';
-    const unsortedAddedTags = await Tag.findAll({
-      include: [{ model: Task, where: { id: taskId } }],
-    });
-    const addedTags = _.sortBy(unsortedAddedTags, ['name']);
 
-    const addedTagIds = [0, ...addedTags.map(item => item.id)];
-    const unsortedOtherTags = await Tag.findAll({
-      where: { id: { $notIn: addedTagIds } },
-    });
-    const otherTags = _.sortBy(unsortedOtherTags, ['name']);
-
-    const tag = Tag.build();
     const tagsString = await getTagsString(task);
-    ctx.render('tasks/show', { f: buildFormObj(tag), task, creator, status, assigned, addedTags, tags: otherTags, tagsString });
+    ctx.render('tasks/show', { f: buildFormObj(), task, creator, status, assigned, tagsString });
   })
 
   .get('tasksEdit', '/tasks/:id/edit', requiredAuth, async (ctx) => {
@@ -82,8 +75,9 @@ export default (router, { User, TaskStatus, Task, Tag }) => {
     }
     const users = await getUsers(User, currentUser);
     const statuses = await TaskStatus.findAll();
+    const tags = await getTagsString(task);
 
-    ctx.render('tasks/edit', { f: buildFormObj(task), task, users, statuses });
+    ctx.render('tasks/edit', { f: buildFormObj(task), task, users, statuses, tags });
   })
 
   .patch('tasksUpdate', '/tasks/:id/edit', requiredAuth, async (ctx) => {
@@ -95,7 +89,12 @@ export default (router, { User, TaskStatus, Task, Tag }) => {
       return;
     }
     const form = ctx.request.body.form;
+    const tags = form.tags.split(/[,;]/).map(tag => tag.trim()).filter(tag => tag);
     try {
+      await task.setTags([]);
+      await tags.map(async tag => Tag.findOne({ where: { name: tag } })
+          .then(async result => (result ? task.addTag(result) :
+            task.createTag({ name: tag }))));
       await task.update({
         name: form.name,
         description: form.description,
@@ -106,6 +105,7 @@ export default (router, { User, TaskStatus, Task, Tag }) => {
       ctx.redirect(router.url('tasksShow', taskId));
     } catch (e) {
       ctx.flash.set({ text: 'Something wrong', type: 'alert-danger' });
+      console.error('ERROR: ', e);
       const users = await getUsers(User, id);
       const statuses = await TaskStatus.findAll();
       ctx.render('tasks/edit', { f: buildFormObj(form, e), task, users, statuses });

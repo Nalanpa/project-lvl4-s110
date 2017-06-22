@@ -7,8 +7,6 @@ html(lang="en")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     script(src='/assets/vendor.js')
     script(src='/assets/application.js')
-    //- script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js")
-    //- script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js")
   body
     nav.navbar.navbar-toggleable-md.navbar-light.bg-faded
       button.navbar-toggler.navbar-toggler-right(aria-controls='navbarResponsive' aria-expanded='false' aria-label='Toggle navigation' data-target='#navbarResponsive' data-toggle='collapse')
@@ -17,7 +15,7 @@ html(lang="en")
         
         ul.navbar-nav.mr-auto
           li.nav-item.mr-4
-            a.navbar-brand(href='/' aria-hidden='true') Task Manager
+            a.navbar-brand.logo(href='/' aria-hidden='true') Task Manager
           li.nav-item
             a.nav-link(href=urlFor('usersIndex'))
               img.link-icon(src='/assets/users.gif')
